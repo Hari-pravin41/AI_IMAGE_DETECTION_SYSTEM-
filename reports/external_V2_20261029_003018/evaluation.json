@@ -1,0 +1,388 @@
+{
+  "metrics": {
+    "n": 400,
+    "n_ai": 200,
+    "n_real": 200,
+    "threshold": 0.5551506385207177,
+    "accuracy": 0.76,
+    "balanced_accuracy": 0.76,
+    "precision": 0.9482758620689655,
+    "recall_ai": 0.55,
+    "specificity_real": 0.97,
+    "f1": 0.6962025316455697,
+    "confusion": {
+      "tn": 194,
+      "fp": 6,
+      "fn": 90,
+      "tp": 110
+    },
+    "roc_auc": 0.92945,
+    "average_precision": 0.9330902935151589,
+    "tpr_at_1pct_fpr": 0.435,
+    "tpr_at_5pct_fpr": 0.66,
+    "brier": 0.15363813106928853,
+    "log_loss": 0.4839212417602052,
+    "ece": 0.19806813905015586,
+    "uncertain_band": {
+      "margin": 0.15,
+      "coverage": 0.57,
+      "accuracy_when_decided": 0.8640350877192983
+    },
+    "by_source": {
+      "anima-preview": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.75,
+        "mean_prob_ai": 0.5913938581943512
+      },
+      "anima-preview2": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.0,
+        "mean_prob_ai": 0.5192551910877228
+      },
+      "animagine-xl-3.0": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.3333333333333333,
+        "mean_prob_ai": 0.5653369625409445
+      },
+      "animagine-xl-3.1": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.6207607686519623
+      },
+      "animagine-xl-4.0": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.75,
+        "mean_prob_ai": 0.6056188717484474
+      },
+      "chroma": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.75,
+        "mean_prob_ai": 0.6055752262473106
+      },
+      "coco2017": {
+        "n": 200,
+        "label": "real",
+        "accuracy": 0.97,
+        "mean_prob_ai": 0.2921923500671983
+      },
+      "cyberrealistic-pony-v14.0": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.6184656322002411
+      },
+      "cyberrealistic-pony-v14.1": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.75,
+        "mean_prob_ai": 0.6096982955932617
+      },
+      "cyberrealistic-pony-v15.0": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.5209078093369802
+      },
+      "cyberrealistic-pony-v16.0": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.75,
+        "mean_prob_ai": 0.6024052575230598
+      },
+      "cyberrealistic-xl-v9.0": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.5,
+        "mean_prob_ai": 0.4760070964694023
+      },
+      "dalle-3": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.6272156039873759
+      },
+      "flux-1.1-pro": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.25,
+        "mean_prob_ai": 0.5223034247756004
+      },
+      "flux-amateursnapshotphotos": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.5857675572236379
+      },
+      "flux-mvc5000": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.5,
+        "mean_prob_ai": 0.6081404536962509
+      },
+      "flux-realism": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.25,
+        "mean_prob_ai": 0.4428390860557556
+      },
+      "flux.1-dev": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.5871160825093588
+      },
+      "flux.1-schnell": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.75,
+        "mean_prob_ai": 0.580574095249176
+      },
+      "flux.2-dev": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.6958626508712769
+      },
+      "flux.2-klein-4b": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.3333333333333333,
+        "mean_prob_ai": 0.5017064412434896
+      },
+      "flux.2-klein-base-4b": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.5,
+        "mean_prob_ai": 0.5709574073553085
+      },
+      "gpt-image-1": {
+        "n": 1,
+        "label": "ai",
+        "accuracy": 0.0,
+        "mean_prob_ai": 0.3029578924179077
+      },
+      "grok-2-image-1212": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.5,
+        "mean_prob_ai": 0.5941833257675171
+      },
+      "hidream-i1-full": {
+        "n": 2,
+        "label": "ai",
+        "accuracy": 0.5,
+        "mean_prob_ai": 0.5781590044498444
+      },
+      "ideogram-3.0": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.75,
+        "mean_prob_ai": 0.5498846247792244
+      },
+      "imagen-3.0-002": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.6820377558469772
+      },
+      "imagen-4.0": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.3333333333333333,
+        "mean_prob_ai": 0.47063063581784564
+      },
+      "kolors-v1.0": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.3333333333333333,
+        "mean_prob_ai": 0.4759497493505478
+      },
+      "midjourney-6": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.0,
+        "mean_prob_ai": 0.3579576214154561
+      },
+      "mystic": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.612003743648529
+      },
+      "nano-banana-2": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.5306822955608368
+      },
+      "novaanimexl_ilv140": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.5,
+        "mean_prob_ai": 0.5444805473089218
+      },
+      "one-obsession-17-red-sdxl": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.6122241616249084
+      },
+      "playground-v2.5-1024px-aesthetic": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.6153758962949117
+      },
+      "qwen-image": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.5,
+        "mean_prob_ai": 0.525343619287014
+      },
+      "realistic_vision_v5.1_novae": {
+        "n": 2,
+        "label": "ai",
+        "accuracy": 0.5,
+        "mean_prob_ai": 0.5922195166349411
+      },
+      "sd-1.5": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.5,
+        "mean_prob_ai": 0.5248732343316078
+      },
+      "sd-1.5-dreamshaper": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.5643978714942932
+      },
+      "sd-1.5-epicdream": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.6480445712804794
+      },
+      "sd-2.1": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.75,
+        "mean_prob_ai": 0.5908848866820335
+      },
+      "sd-3.5": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.0,
+        "mean_prob_ai": 0.5198822716871897
+      },
+      "sd-turbo": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.0,
+        "mean_prob_ai": 0.5072360709309578
+      },
+      "sd-xl-v1.0-vae-fix": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.75,
+        "mean_prob_ai": 0.5871391966938972
+      },
+      "sdxl": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.25,
+        "mean_prob_ai": 0.537646658718586
+      },
+      "sdxl-1.0": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.3333333333333333,
+        "mean_prob_ai": 0.5304579436779022
+      },
+      "sdxl-epic-realism": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.25,
+        "mean_prob_ai": 0.45462921261787415
+      },
+      "sdxl-juggernaut": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.5,
+        "mean_prob_ai": 0.5643056333065033
+      },
+      "sdxl-realvis-v5": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.4865722358226776
+      },
+      "sdxl-touchofrealism": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.75,
+        "mean_prob_ai": 0.5677944645285606
+      },
+      "sdxl-turbo": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.75,
+        "mean_prob_ai": 0.6213467195630074
+      },
+      "seedream-v4.0": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.3333333333333333,
+        "mean_prob_ai": 0.5062777747710546
+      },
+      "seedream-v4.5": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.3333333333333333,
+        "mean_prob_ai": 0.48504455884297687
+      },
+      "stable-diffusion-v1-4": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.25,
+        "mean_prob_ai": 0.46581918001174927
+      },
+      "stable-diffusion-v1-5": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.6618211766084036
+      },
+      "stable-diffusion-xl-base-1.0": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.0,
+        "mean_prob_ai": 0.4280702769756317
+      },
+      "studio-ghibli-wan2.1-t2v-14b-v1.0": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.3333333333333333,
+        "mean_prob_ai": 0.5592581729094187
+      },
+      "tiny-random-sana": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.8717245310544968
+      },
+      "wan-video-2.2": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.3333333333333333,
+        "mean_prob_ai": 0.5334797104199728
+      }
+    }
+  }
+}

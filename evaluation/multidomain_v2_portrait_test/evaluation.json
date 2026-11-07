@@ -1,0 +1,70 @@
+{
+  "metrics": {
+    "n": 84,
+    "n_ai": 50,
+    "n_real": 34,
+    "threshold": 0.43453800451755525,
+    "accuracy": 0.8452380952380952,
+    "balanced_accuracy": 0.8135294117647058,
+    "precision": 0.8032786885245902,
+    "recall_ai": 0.98,
+    "specificity_real": 0.6470588235294118,
+    "f1": 0.882882882882883,
+    "confusion": {
+      "tn": 22,
+      "fp": 12,
+      "fn": 1,
+      "tp": 49
+    },
+    "roc_auc": 0.908235294117647,
+    "average_precision": 0.9262025941153781,
+    "tpr_at_1pct_fpr": 0.38,
+    "tpr_at_5pct_fpr": 0.4,
+    "brier": 0.12155488692168676,
+    "log_loss": 0.39920414780955404,
+    "ece": 0.11830569519883109,
+    "uncertain_band": {
+      "margin": 0.15,
+      "coverage": 0.8095238095238095,
+      "accuracy_when_decided": 0.8970588235294118
+    },
+    "by_source": {
+      "ai/flux_2_flex": {
+        "n": 10,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.8798362910747528
+      },
+      "ai/gemini_3_pro": {
+        "n": 10,
+        "label": "ai",
+        "accuracy": 0.9,
+        "mean_prob_ai": 0.6882954508066177
+      },
+      "ai/glm_image": {
+        "n": 10,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.9133345186710358
+      },
+      "ai/recraft_v3": {
+        "n": 10,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.6857204496860504
+      },
+      "ai/z_image": {
+        "n": 10,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.8065647095441818
+      },
+      "real/arena": {
+        "n": 34,
+        "label": "real",
+        "accuracy": 0.6470588235294118,
+        "mean_prob_ai": 0.38131121677510876
+      }
+    }
+  }
+}

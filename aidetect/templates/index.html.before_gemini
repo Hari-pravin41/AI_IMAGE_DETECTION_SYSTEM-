@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Image Detection System</title>
+  <style>
+    :root{--bg:#f4f6fb;--panel:#fff;--panel2:#f8f9fd;--ink:#172033;--muted:#707a8f;--line:#e3e7f0;--brand:#6758e8;--brand2:#8c7cf0;--green:#1eaa75;--amber:#d99929;--red:#dc5d67;--shadow:0 18px 45px rgba(30,38,70,.09)}
+    body.dark{--bg:#11141c;--panel:#191d28;--panel2:#151923;--ink:#f2f4fb;--muted:#aab1c1;--line:#303647;--shadow:0 18px 45px rgba(0,0,0,.28)}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,Segoe UI,system-ui,sans-serif;transition:.2s}
+    button,input{font:inherit}.app{min-height:100vh;display:grid;grid-template-columns:248px 1fr}.sidebar{position:fixed;inset:0 auto 0 0;width:248px;background:var(--panel);border-right:1px solid var(--line);padding:24px 18px;display:flex;flex-direction:column;z-index:10}
+    .brand{display:flex;gap:12px;align-items:center;font-weight:800;font-size:17px}.brand-icon{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:grid;place-items:center;color:white;box-shadow:0 8px 20px rgba(103,88,232,.28)}
+    nav{margin-top:34px;display:grid;gap:8px}.nav{border:0;background:transparent;color:var(--muted);padding:11px 13px;border-radius:10px;text-align:left;cursor:pointer;display:flex;gap:11px;align-items:center}.nav:hover,.nav.active{background:color-mix(in srgb,var(--brand) 10%,var(--panel));color:var(--brand)}
+    .sidebar-foot{margin-top:auto}.theme-row{display:flex;align-items:center;justify-content:space-between;color:var(--muted);padding:12px 4px}.switch{width:44px;height:24px;border-radius:20px;border:1px solid var(--line);background:var(--panel2);padding:3px;cursor:pointer}.switch span{display:block;width:16px;height:16px;border-radius:50%;background:var(--muted);transition:.2s}.dark .switch span{transform:translateX(18px);background:var(--brand)}
+    main{grid-column:2;padding:28px 38px 50px;max-width:1400px;width:100%;margin:0 auto}.topbar{height:42px;display:flex;justify-content:flex-end;align-items:center;margin-bottom:18px}.status{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}.status:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px color-mix(in srgb,var(--green) 12%,transparent)}
+    h1{font-size:34px;letter-spacing:-.035em;margin:0 0 6px}.subtitle{margin:0;color:var(--muted);max-width:760px}.view{display:none}.view.active{display:block}.hero-row{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:24px}
+    .upload-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:20px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow)}.drop{min-height:330px;border:2px dashed var(--line);border-radius:16px;display:grid;place-items:center;text-align:center;padding:30px;cursor:pointer;background:linear-gradient(145deg,var(--panel),color-mix(in srgb,var(--brand) 3%,var(--panel)));transition:.2s}.drop.over,.drop:hover{border-color:var(--brand);transform:translateY(-2px)}.upload-mark{width:66px;height:66px;border-radius:18px;background:color-mix(in srgb,var(--brand) 12%,var(--panel));color:var(--brand);display:grid;place-items:center;margin:0 auto 16px;font-size:28px}.drop strong{font-size:18px}.drop small{color:var(--muted);display:block;margin-top:8px}.browse{color:var(--brand)}
+    .preview{height:330px;display:grid;place-items:center;overflow:hidden}.preview img{max-width:100%;max-height:290px;border-radius:12px}.preview-empty{color:var(--muted);text-align:center}.preview-empty span{display:block;font-size:34px;margin-bottom:8px}.filename{font-weight:700;margin-top:10px;text-align:center;word-break:break-word}
+    .action-row{display:flex;align-items:center;gap:12px;margin-top:16px}.primary,.secondary{border:0;border-radius:10px;padding:11px 18px;font-weight:700;cursor:pointer}.primary{background:var(--brand);color:white}.primary:disabled{opacity:.55;cursor:not-allowed}.secondary{background:var(--panel);border:1px solid var(--line);color:var(--ink)}.loading{color:var(--muted)}.loading i{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--brand);border-radius:50%;animation:spin .8s linear infinite;margin-right:7px;vertical-align:-2px}@keyframes spin{to{transform:rotate(360deg)}}.error{padding:12px;border-radius:10px;background:color-mix(in srgb,var(--red) 10%,var(--panel));color:var(--red);margin-top:14px}
+    .result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}.metric{padding:18px}.metric-label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}.assessment{font-size:24px;font-weight:800;margin-top:4px}.assessment.real{color:var(--green)}.assessment.ai{color:var(--red)}.assessment.uncertain{color:var(--amber)}
+    .meter{height:10px;background:linear-gradient(90deg,var(--green),#f5cd66,var(--red));border-radius:6px;position:relative;margin-top:18px}.needle{position:absolute;top:-5px;width:3px;height:20px;background:var(--ink);border-radius:2px}.threshold{position:absolute;top:-4px;height:18px;border-left:2px dashed var(--muted)}.scale{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-top:6px}
+    .details-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.observations{margin:0;padding-left:18px}.observations li{margin:8px 0;color:var(--muted)}.notice{border-radius:10px;background:color-mix(in srgb,var(--amber) 9%,var(--panel));border-left:3px solid var(--amber);padding:12px;color:var(--muted)}
+    .history-list{display:grid;gap:12px}.history-row{display:grid;grid-template-columns:48px 1fr auto auto;align-items:center;gap:14px}.file-thumb{width:48px;height:48px;border-radius:10px;background:var(--panel2);display:grid;place-items:center;color:var(--brand)}.history-meta{color:var(--muted);font-size:12px}.badge{font-size:11px;font-weight:800;padding:5px 9px;border-radius:999px}.badge.real{background:color-mix(in srgb,var(--green) 12%,var(--panel));color:var(--green)}.badge.ai{background:color-mix(in srgb,var(--red) 12%,var(--panel));color:var(--red)}.badge.uncertain{background:color-mix(in srgb,var(--amber) 12%,var(--panel));color:var(--amber)}
+    .empty{text-align:center;color:var(--muted);padding:70px 20px}.mobile-menu{display:none}
+    @media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{width:220px;transform:translateX(-100%);transition:.2s}.sidebar.open{transform:none;box-shadow:20px 0 50px rgba(0,0,0,.18)}main{grid-column:1;padding:20px}.mobile-menu{display:block;border:0;background:var(--panel);color:var(--ink);border-radius:8px;width:38px;height:38px}.topbar{justify-content:space-between}.upload-grid,.details-grid{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:600px){main{padding:16px 12px 40px}.hero-row{display:block}h1{font-size:28px}.result-grid{grid-template-columns:1fr}.history-row{grid-template-columns:42px 1fr auto}.history-row button{grid-column:2}.action-row{flex-wrap:wrap}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><span class="brand-icon">AI</span><span>AI Image Detection System</span></div>
+    <nav>
+      <button class="nav active" data-view="dashboard">▦ &nbsp; Dashboard</button>
+      <button class="nav" data-view="history">◷ &nbsp; Analysis History</button>
+      <button class="nav" data-view="about">ⓘ &nbsp; About &amp; Limits</button>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="theme-row"><span>Dark mode</span><button class="switch" id="theme" aria-label="Toggle dark mode"><span></span></button></div>
+    </div>
+  </aside>
+  <main data-max-mb="{{ max_mb }}" data-max-files="{{ max_files }}">
+    <header class="topbar"><button class="mobile-menu" id="menu" aria-label="Open navigation">☰</button><span class="status">Local analysis ready</span></header>
+    <section class="view active" id="dashboard">
+      <div class="hero-row"><div><h1>Image analysis</h1><p class="subtitle">Upload a photograph to assess visual characteristics associated with generated imagery.</p></div></div>
+      <div class="upload-grid">
+        <div>
+          <div class="card"><div class="drop" id="drop" tabindex="0"><div><div class="upload-mark">⇧</div><strong>Drop an image here</strong><small>or <span class="browse">browse your computer</span><br>JPEG, PNG, WebP, BMP, TIFF · {{ max_mb }} MB maximum</small></div></div></div>
+          <input id="file" type="file" accept="image/*" hidden>
+          <div class="action-row"><button class="primary" id="analyse" disabled>Analyze Image</button><span class="loading" id="loading" hidden><i></i>Analyzing image…</span></div>
+          <div class="error" id="error" hidden></div>
+        </div>
+        <div class="card preview" id="preview"><div class="preview-empty"><span>▧</span>Image preview</div></div>
+      </div>
+      <div id="result"></div>
+    </section>
+    <section class="view" id="history"><div class="hero-row"><div><h1>Analysis History</h1><p class="subtitle">Recent analyses from this server session.</p></div></div><div class="history-list" id="history-list"></div></section>
+    <section class="view" id="about"><div class="hero-row"><div><h1>About the assessment</h1></div></div><div class="card"><p>AI Image Detection System provides an image analysis assessment, not a scientific proof of origin. Results may be affected by compression, resizing, screenshots, unusual lighting, editing, and the images used to train the detector.</p><p>Visual assessments cannot definitively prove that an image is generated or authentic. Use these results as one supporting signal and verify important evidence through trusted metadata, provenance records, and source review.</p><div class="notice">Image manipulation and editing detection are not implemented. No accuracy claim or calibrated probability should be inferred from this interface.</div></div></section>
+  </main>
+</div>
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const main = document.querySelector('main');
+  const maxMb = Number(main.dataset.maxMb);
+  let selectedFile = null, currentReport = null, currentResult = null;
+  const savedTheme = localStorage.getItem('image-detector-theme');
+  if(savedTheme === 'dark') document.body.classList.add('dark');
+  $('#theme').onclick = () => { document.body.classList.toggle('dark'); localStorage.setItem('image-detector-theme', document.body.classList.contains('dark')?'dark':'light'); };
+  $('#menu').onclick = () => $('#sidebar').classList.toggle('open');
+  document.querySelectorAll('.nav').forEach(button => button.onclick = () => {
+    document.querySelectorAll('.nav').forEach(n => n.classList.toggle('active', n === button));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    $('#' + button.dataset.view).classList.add('active');
+    $('#sidebar').classList.remove('open');
+    if(button.dataset.view === 'history') loadHistory();
+  });
+  const drop = $('#drop'), input = $('#file');
+  drop.onclick = () => input.click();
+  drop.onkeydown = e => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); } };
+  ['dragenter','dragover'].forEach(type => drop.addEventListener(type, e => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave','drop'].forEach(type => drop.addEventListener(type, e => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', e => choose(e.dataTransfer.files[0]));
+  input.onchange = () => { choose(input.files[0]); input.value = ''; };
+  function choose(file) {
+    drop.classList.remove('over');
+    $('#error').hidden = true;
+    if(!file) return;
+    if(!file.type.startsWith('image/')) return showError('Please select a valid image file.');
+    if(file.size > maxMb * 1048576) return showError(`The image exceeds the ${maxMb} MB limit.`);
+    selectedFile = file;
+    const url = URL.createObjectURL(file);
+    $('#preview').innerHTML = `<div><img src="${url}" alt="Selected image preview"><div class="filename">${escapeHtml(file.name)}</div></div>`;
+    $('#analyse').disabled = false;
+    $('#result').replaceChildren();
+  }
+  function showError(message) { $('#error').textContent = message; $('#error').hidden = false; }
+  function escapeHtml(value) { const el = document.createElement('span'); el.textContent = value; return el.innerHTML; }
+  $('#analyse').onclick = analyse;
+  async function analyse() {
+    if(!selectedFile) return;
+    $('#analyse').disabled = true; $('#loading').hidden = false; $('#error').hidden = true;
+    $('#result').replaceChildren();
+    try {
+      const form = new FormData(); form.append('files', selectedFile);
+      const response = await fetch('/api/predict', {method:'POST', body:form});
+      const payload = await response.json();
+      if(!response.ok) throw new Error(payload.error || `Analysis failed (${response.status})`);
+      const result = payload.results?.[0];
+      if(!result?.ok) throw new Error(result?.error || 'The image could not be analyzed.');
+      currentResult = result; currentReport = result.forensic_report;
+      renderResult(result);
+      loadHistory();
+    } catch(error) { showError(error.message || String(error)); }
+    finally { $('#loading').hidden = true; $('#analyse').disabled = false; }
+  }
+  function labelFor(result) {
+    const label = result.label || 'uncertain';
+    if(label === 'real') return ['Real-image assessment','real'];
+    if(label === 'ai_generated') return ['AI-generated assessment','ai'];
+    return ['Inconclusive assessment','uncertain'];
+  }
+  function renderResult(result) {
+    const [assessment, cls] = labelFor(result);
+    const report = result.forensic_report || {};
+    const facts = report.file_integrity || {};
+    const score = Number(result.prob_ai ?? 0);
+    const threshold = Number(result.threshold ?? 0.5);
+    const observations = [
+      `Detected image format: ${facts.format || result.format || 'Unknown'}`,
+      `Dimensions: ${result.size?.[0] || facts.dimensions_px?.width || '?'} × ${result.size?.[1] || facts.dimensions_px?.height || '?'}`,
+      'Analysis characteristics are model-derived estimates and should not be treated as definitive evidence.'
+    ];
+    $('#result').innerHTML = `
+      <div class="result-grid">
+        <div class="card metric"><div class="metric-label">Detection assessment</div><div class="assessment ${cls}">${assessment}</div><div class="history-meta">${escapeHtml(result.name || selectedFile.name)}</div></div>
+        <div class="card metric"><div class="metric-label">Assessment strength</div><div style="font-size:24px;font-weight:800">${Math.round(score*100)}%</div><div class="meter"><div class="needle" style="left:${score*100}%"></div><div class="threshold" style="left:${threshold*100}%"></div></div><div class="scale"><span>Real direction</span><span>AI direction</span></div><div class="history-meta">Illustrative model position; not a calibrated probability.</div></div>
+        <div class="card metric"><div class="metric-label">Analysis confidence</div><div style="font-size:24px;font-weight:800">${result.label === 'uncertain' ? 'Inconclusive' : 'Supported assessment'}</div><div class="history-meta">A visual result, not proof of origin.</div></div>
+      </div>
+      <div class="details-grid">
+        <div class="card"><h3>Image characteristics</h3><ul class="observations">${observations.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul></div>
+        <div class="card"><h3>Explanation</h3><p class="history-meta">The detector evaluated visual and file-derived patterns. Compression, editing, metadata, image subject, and source conditions can change the assessment.</p><div class="notice">This assessment cannot definitively prove whether an image is real or generated.</div></div>
+      </div>
+      <div class="action-row"><button class="secondary" id="pdf">Download PDF Report</button></div>`;
+    $('#pdf').onclick = downloadPdf;
+  }
+  async function downloadPdf() {
+    if(!currentReport) return showError('Run an analysis before downloading a report.');
+    const button = $('#pdf'); button.disabled = true; button.textContent = 'Preparing PDF…';
+    try {
+      const form = new FormData(); form.append('report', JSON.stringify(currentReport));
+      if(selectedFile) form.append('image', selectedFile, selectedFile.name);
+      const response = await fetch('/api/report/pdf', {method:'POST', body:form});
+      if(!response.ok) { const payload = await response.json(); throw new Error(payload.error || 'PDF generation failed'); }
+      const blob = await response.blob(), url = URL.createObjectURL(blob), link = document.createElement('a');
+      link.href = url; link.download = `AI-Image-Detection-System-${currentReport.case_id}.pdf`; link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch(error) { showError(error.message || String(error)); }
+    finally { button.disabled = false; button.textContent = 'Download PDF Report'; }
+  }
+  async function loadHistory() {
+    const container = $('#history-list');
+    try {
+      const response = await fetch('/api/history'), payload = await response.json();
+      const items = payload.history || [];
+      if(!items.length) { container.innerHTML = '<div class="empty">No analysis history yet.</div>'; return; }
+      container.innerHTML = items.map(item => {
+        const [text, cls] = item.label === 'real' ? ['Real-image assessment','real'] : item.label === 'ai_generated' ? ['AI-generated assessment','ai'] : ['Inconclusive','uncertain'];
+        return `<div class="card history-row"><div class="file-thumb">▧</div><div><strong>${escapeHtml(item.filename || 'Image')}</strong><div class="history-meta">${escapeHtml(item.timestamp || '')}</div></div><span class="badge ${cls}">${text}</span><button class="secondary" data-delete="${escapeHtml(item.case_id || '')}">Remove</button></div>`;
+      }).join('');
+      container.querySelectorAll('[data-delete]').forEach(button => button.onclick = async () => {
+        await fetch('/api/history/' + encodeURIComponent(button.dataset.delete), {method:'DELETE'}); loadHistory();
+      });
+    } catch(error) { container.innerHTML = `<div class="error">${escapeHtml(error.message || String(error))}</div>`; }
+  }
+})();
+</script>
+</body>
+</html>

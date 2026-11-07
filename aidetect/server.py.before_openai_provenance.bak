@@ -1,0 +1,199 @@
+"""Local web UI + JSON API."""
+from __future__ import annotations
+
+import base64
+import io
+import json
+from pathlib import Path
+import re
+
+from flask import Flask, jsonify, render_template, request, send_file
+
+from .config import Config
+from .detector import Detector
+from .explain import render_panels
+from .forensics import build_case_report
+from .loader import ImageError, load_image
+from .pdf_report import InvalidReportError, create_pdf_report
+from .scope import SCOPE_WARNING, SUPPORTED_DOMAIN
+
+_TEMPLATES = Path(__file__).parent / "templates"
+
+
+def _register_pdf_report_route(app: Flask, cfg: Config) -> None:
+    @app.post("/api/report/pdf")
+    def download_pdf_report():
+        raw_report = request.form.get("report")
+        if not raw_report:
+            return jsonify({"error": "include the case report in the 'report' form field"}), 400
+        try:
+            report = json.loads(raw_report)
+        except json.JSONDecodeError:
+            return jsonify({"error": "the 'report' field must contain valid JSON"}), 400
+
+        image_file = request.files.get("image")
+        image_bytes = None
+        if image_file:
+            image_bytes = image_file.read(int(cfg.max_upload_mb * 1024 * 1024) + 1)
+            if len(image_bytes) > cfg.max_upload_mb * 1024 * 1024:
+                return jsonify({"error": f"file larger than {cfg.max_upload_mb:g} MB"}), 413
+        try:
+            pdf_bytes = create_pdf_report(report, image_bytes)
+        except InvalidReportError as exc:
+            return jsonify({"error": str(exc)}), 400
+        case_id = report.get("case_id", "case") if isinstance(report, dict) else "case"
+        safe_case_id = re.sub(r"[^A-Za-z0-9._-]+", "-", str(case_id))[:64].strip(".-_")
+        return send_file(
+            io.BytesIO(pdf_bytes),
+            mimetype="application/pdf",
+            as_attachment=True,
+            download_name=f"image-forensic-report-{safe_case_id or 'case'}.pdf",
+        )
+
+
+def create_app(detector: Detector) -> Flask:
+    cfg = detector.cfg
+    app = Flask(__name__, template_folder=str(_TEMPLATES))
+    app.config["MAX_CONTENT_LENGTH"] = int(cfg.max_upload_mb * cfg.max_batch_files * 1024 * 1024)
+    _register_pdf_report_route(app, cfg)
+
+    @app.get("/")
+    def index():
+        return render_template("index.html", info=detector.info(), max_mb=cfg.max_upload_mb,
+                               max_files=cfg.max_batch_files)
+
+    @app.get("/api/health")
+    def health():
+        return jsonify({"status": "ok"})
+
+    @app.get("/api/model")
+    def model():
+        return jsonify({
+            "model_type": "forensic",
+            "supported_domain": SUPPORTED_DOMAIN,
+            "scope_warning": SCOPE_WARNING,
+            **detector.info(),
+        })
+
+    @app.post("/api/predict")
+    def predict():
+        files = request.files.getlist("files") or request.files.getlist("file")
+        if not files:
+            return jsonify({"error": "send one or more images as multipart field 'files'"}), 400
+        if len(files) > cfg.max_batch_files:
+            return jsonify({"error": f"at most {cfg.max_batch_files} files per request"}), 400
+        explain = request.form.get("explain", "1").lower() not in ("0", "false", "no")
+        out = []
+        for f in files:
+            data = f.read(int(cfg.max_upload_mb * 1024 * 1024) + 1)
+            name = Path(f.filename or "upload").name
+            if len(data) > cfg.max_upload_mb * 1024 * 1024:
+                out.append({"name": name, "ok": False, "error": f"file larger than {cfg.max_upload_mb:g} MB"})
+                continue
+            try:
+                img = load_image(data, cfg, name=name)
+            except ImageError as e:
+                out.append({"name": name, "ok": False, "error": str(e)})
+                continue
+            try:
+                pred = detector.predict_loaded(img, explain=explain)
+                d = pred.to_dict()
+                d["forensic_report"] = build_case_report(data, img, d, detector, name)
+                if explain:
+                    d["panels"] = {k: "data:image/png;base64," + base64.b64encode(v).decode()
+                                   for k, v in render_panels(img, pred).items()}
+            except Exception:
+                app.logger.exception("Image analysis failed")
+                out.append({
+                    "name": name,
+                    "ok": False,
+                    "error": "image analysis failed; see the local server log for details",
+                })
+                continue
+            out.append(d)
+        return jsonify({"results": out})
+
+    @app.errorhandler(413)
+    def too_large(_e):
+        return jsonify({"error": "upload too large"}), 413
+
+    return app
+
+
+def create_gpu_app(detector, cfg: Config | None = None) -> Flask:
+    cfg = cfg or Config()
+    app = Flask(__name__, template_folder=str(_TEMPLATES))
+    app.config["MAX_CONTENT_LENGTH"] = int(cfg.max_upload_mb * cfg.max_batch_files * 1024 * 1024)
+    _register_pdf_report_route(app, cfg)
+
+    @app.get("/")
+    def index():
+        return render_template("index.html", info={"model_type": "gpu"}, max_mb=cfg.max_upload_mb,
+                               max_files=cfg.max_batch_files, model_type="gpu")
+
+    @app.get("/api/health")
+    def health():
+        return jsonify({"status": "ok"})
+
+    @app.get("/api/model")
+    def model():
+        return jsonify({"model_type": "gpu", "architecture": "ResNet-18",
+                        "threshold": detector.threshold, "device": str(detector.device),
+                        "supported_domain": SUPPORTED_DOMAIN, "scope_warning": SCOPE_WARNING})
+
+    @app.post("/api/predict")
+    def predict():
+        files = request.files.getlist("files") or request.files.getlist("file")
+        if not files:
+            return jsonify({"error": "send one or more images as multipart field 'files'"}), 400
+        if len(files) > cfg.max_batch_files:
+            return jsonify({"error": f"at most {cfg.max_batch_files} files per request"}), 400
+        out = []
+        for f in files:
+            data = f.read(int(cfg.max_upload_mb * 1024 * 1024) + 1)
+            name = Path(f.filename or "upload").name
+            if len(data) > cfg.max_upload_mb * 1024 * 1024:
+                out.append({"name": name, "ok": False, "error": f"file larger than {cfg.max_upload_mb:g} MB"})
+                continue
+            try:
+                image = load_image(data, cfg, name=name)
+            except ImageError as e:
+                out.append({"name": name, "ok": False, "error": str(e)})
+                continue
+            try:
+                from PIL import Image
+                result = detector.predict_image(Image.fromarray(image.rgb), name)
+                result["format"] = image.format
+                result["forensic_report"] = build_case_report(
+                    data, image, result, detector, name
+                )
+            except Exception:
+                app.logger.exception("GPU image analysis failed")
+                out.append({
+                    "name": name,
+                    "ok": False,
+                    "error": "image analysis failed; see the local server log for details",
+                })
+                continue
+            out.append(result)
+        return jsonify({"results": out})
+
+    @app.errorhandler(413)
+    def too_large(_e):
+        return jsonify({"error": "upload too large"}), 413
+
+    return app
+
+
+def serve(model_dir: str, host: str, port: int) -> None:
+    app = create_app(Detector.load(model_dir))
+    print(f"aidetect UI on http://{host}:{port}  (Ctrl+C to stop)")
+    app.run(host=host, port=port, threaded=True, debug=False)
+
+
+def serve_gpu(model_dir: str, host: str, port: int, device: str) -> None:
+    from .gpu import GPUDetector
+
+    app = create_gpu_app(GPUDetector.load(model_dir, device))
+    print(f"aidetect GPU UI on http://{host}:{port}  (Ctrl+C to stop)")
+    app.run(host=host, port=port, threaded=True, debug=False)

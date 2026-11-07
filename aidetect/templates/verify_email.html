@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verify email | AI Image Detection System</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;font:16px/1.5 Inter,Segoe UI,system-ui;color:#172033;background:#f4f6fb;padding:20px}
+    main{width:min(430px,100%);background:white;border:1px solid #e4e7ef;border-radius:18px;padding:32px;text-align:center;box-shadow:0 20px 50px rgba(30,38,70,.09)}
+    h1{margin:0 0 8px}.message{min-height:24px;color:#707a8f;margin:18px 0}button{width:100%;border:0;border-radius:10px;padding:13px;background:#6758e8;color:white;font-weight:800;cursor:pointer}.success{color:#14805e}.error{color:#b4232c}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Verify your email</h1>
+    <p class="message" id="message">Confirming your email address…</p>
+    <button id="continue" type="button" hidden>Continue to sign in</button>
+  </main>
+  <script>
+    const token={{ token|tojson }};
+    fetch('/api/auth/verify-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token})})
+      .then(async response=>{const payload=await response.json(); const output=document.querySelector('#message'); if(!response.ok){output.className='message error'; output.textContent=payload.error||'Verification failed.'; return;} output.className='message success'; output.textContent=payload.message; document.querySelector('#continue').hidden=false;})
+      .catch(()=>{const output=document.querySelector('#message'); output.className='message error'; output.textContent='Verification could not be completed. Please try again.';});
+    document.querySelector('#continue').onclick=()=>location.assign('/');
+  </script>
+</body>
+</html>

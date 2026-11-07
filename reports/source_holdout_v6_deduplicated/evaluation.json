@@ -1,0 +1,124 @@
+{
+  "metrics": {
+    "n": 620,
+    "n_ai": 325,
+    "n_real": 295,
+    "threshold": 0.751067902326584,
+    "accuracy": 0.6129032258064516,
+    "balanced_accuracy": 0.629361147327249,
+    "precision": 0.912621359223301,
+    "recall_ai": 0.28923076923076924,
+    "specificity_real": 0.9694915254237289,
+    "f1": 0.4392523364485981,
+    "confusion": {
+      "tn": 286,
+      "fp": 9,
+      "fn": 231,
+      "tp": 94
+    },
+    "roc_auc": 0.8272281616688396,
+    "average_precision": 0.8447166120155922,
+    "tpr_at_1pct_fpr": 0.18461538461538463,
+    "tpr_at_5pct_fpr": 0.3476923076923077,
+    "brier": 0.20280257291139753,
+    "log_loss": 0.6815498454284954,
+    "ece": 0.17287245345316715,
+    "uncertain_band": {
+      "margin": 0.15,
+      "coverage": 0.8145161290322581,
+      "accuracy_when_decided": 0.6415841584158416
+    },
+    "by_source": {
+      "ai/animagine-xl-3.1": {
+        "n": 11,
+        "label": "ai",
+        "accuracy": 0.5454545454545454,
+        "mean_prob_ai": 0.7461579699407924
+      },
+      "ai/chroma": {
+        "n": 26,
+        "label": "ai",
+        "accuracy": 0.15384615384615385,
+        "mean_prob_ai": 0.4397867360295585
+      },
+      "ai/cyberrealistic-pony-v14.0": {
+        "n": 9,
+        "label": "ai",
+        "accuracy": 0.0,
+        "mean_prob_ai": 0.4825132531631324
+      },
+      "ai/flux-1.1-pro": {
+        "n": 45,
+        "label": "ai",
+        "accuracy": 0.3333333333333333,
+        "mean_prob_ai": 0.48483509271302155
+      },
+      "ai/flux-amateursnapshotphotos": {
+        "n": 13,
+        "label": "ai",
+        "accuracy": 0.38461538461538464,
+        "mean_prob_ai": 0.526480062219959
+      },
+      "ai/flux-realism": {
+        "n": 7,
+        "label": "ai",
+        "accuracy": 0.2857142857142857,
+        "mean_prob_ai": 0.39057519286870956
+      },
+      "ai/flux.1-schnell": {
+        "n": 47,
+        "label": "ai",
+        "accuracy": 0.3617021276595745,
+        "mean_prob_ai": 0.5691359022315196
+      },
+      "ai/flux.2-klein-4b": {
+        "n": 24,
+        "label": "ai",
+        "accuracy": 0.5416666666666666,
+        "mean_prob_ai": 0.6887723995993534
+      },
+      "ai/one-obsession-17-red-sdxl": {
+        "n": 9,
+        "label": "ai",
+        "accuracy": 0.4444444444444444,
+        "mean_prob_ai": 0.7304305500454373
+      },
+      "ai/openflux.1": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.75,
+        "mean_prob_ai": 0.828857034444809
+      },
+      "ai/pony": {
+        "n": 6,
+        "label": "ai",
+        "accuracy": 0.3333333333333333,
+        "mean_prob_ai": 0.7016859352588654
+      },
+      "ai/sd-3.5": {
+        "n": 47,
+        "label": "ai",
+        "accuracy": 0.2553191489361702,
+        "mean_prob_ai": 0.44201637957086587
+      },
+      "ai/sdxl": {
+        "n": 49,
+        "label": "ai",
+        "accuracy": 0.22448979591836735,
+        "mean_prob_ai": 0.4420582307787726
+      },
+      "ai/tiny-random-sana": {
+        "n": 28,
+        "label": "ai",
+        "accuracy": 0.0,
+        "mean_prob_ai": 0.5509699348892484
+      },
+      "real/pexels": {
+        "n": 295,
+        "label": "real",
+        "accuracy": 0.9694915254237289,
+        "mean_prob_ai": 0.15998744211365346
+      }
+    }
+  }
+}

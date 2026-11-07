@@ -1,0 +1,123 @@
+crop_size: 128
+crops_per_image: 6
+heatmap_max_crops: 36
+min_side: null
+max_pixels: 100000000
+max_file_mb: 64.0
+feature_groups:
+- spectral
+- noise
+- texture
+- color
+- compression
+radial_bins: 24
+use_metadata_features: false
+augment_copies: 1
+augment:
+  prob_each: 0.5
+  jpeg_quality:
+  - 55
+  - 95
+  scale:
+  - 0.5
+  - 1.0
+  blur_sigma:
+  - 0.3
+  - 1.2
+  noise_sigma:
+  - 0.5
+  - 3.0
+test_size: 0.2
+cv_folds: 5
+seed: 42
+n_jobs: -1
+cache_dir: null
+use_cache: true
+models:
+- hgb
+- extra_trees
+- logreg
+model: {}
+model_params: {}
+high_level:
+  enabled: true
+  method: logreg
+  weight: 0.35
+  hidden_dim: 64
+threshold_metric: balanced_accuracy
+target_accuracy: 0.95
+min_coverage: 0.5
+fallback_margin: 0.15
+near_dup_hamming: 4
+provenance_override: true
+class_aliases:
+  ai:
+  - ai
+  - fake
+  - fakes
+  - generated
+  - synthetic
+  - artificial
+  - gan
+  - diffusion
+  - sd
+  - sdxl
+  - midjourney
+  - dalle
+  - dall
+  - flux
+  - deepfake
+  - aigc
+  - machine
+  real:
+  - real
+  - reals
+  - authentic
+  - natural
+  - genuine
+  - photo
+  - photos
+  - photograph
+  - human
+  - camera
+  - original
+  - nature
+image_extensions:
+- .jpg
+- .jpeg
+- .png
+- .webp
+- .bmp
+- .tif
+- .tiff
+- .gif
+- .jfif
+robustness:
+- name: jpeg_q90
+  ops:
+  - op: jpeg
+    quality: 90
+- name: jpeg_q70
+  ops:
+  - op: jpeg
+    quality: 70
+- name: resize_0.75
+  ops:
+  - op: resize
+    scale: 0.75
+- name: blur_1.0
+  ops:
+  - op: blur
+    sigma: 1.0
+- name: noise_3
+  ops:
+  - op: noise
+    sigma: 3.0
+- name: social_media
+  ops:
+  - op: resize
+    scale: 0.75
+  - op: jpeg
+    quality: 75
+max_upload_mb: 25.0
+max_batch_files: 20

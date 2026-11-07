@@ -1,0 +1,117 @@
+{
+  "n_usable": 2250,
+  "per_class": {
+    "real": 980,
+    "ai": 1270
+  },
+  "sources": {
+    "ai/ai/amateur-photography-v6": 5,
+    "ai/ai/anima-preview": 15,
+    "ai/ai/anima-preview2": 5,
+    "ai/ai/animagine-xl-3.0": 12,
+    "ai/ai/animagine-xl-4.0": 15,
+    "ai/ai/cyberrealistic-pony-v14.1": 11,
+    "ai/ai/cyberrealistic-pony-v15.0": 10,
+    "ai/ai/cyberrealistic-pony-v16.0": 9,
+    "ai/ai/cyberrealistic-pony-v17.0": 5,
+    "ai/ai/cyberrealistic-xl-v10.0": 1,
+    "ai/ai/cyberrealistic-xl-v9.0": 9,
+    "ai/ai/dalle-3": 49,
+    "ai/ai/flux-mvc5000": 36,
+    "ai/ai/flux.1-dev": 49,
+    "ai/ai/flux.2-dev": 38,
+    "ai/ai/flux.2-klein-base-4b": 18,
+    "ai/ai/gpt-image-1": 49,
+    "ai/ai/grok-2-image-1212": 36,
+    "ai/ai/grok-imagine": 3,
+    "ai/ai/hidream-i1-full": 48,
+    "ai/ai/hunyuan-video": 2,
+    "ai/ai/ideogram-3.0": 46,
+    "ai/ai/imagen-3.0-002": 14,
+    "ai/ai/imagen-4.0": 31,
+    "ai/ai/kling-video-v2.5-turbo": 1,
+    "ai/ai/kolors-v1.0": 9,
+    "ai/ai/ltxv-2.3": 3,
+    "ai/ai/midjourney-6": 47,
+    "ai/ai/mystic": 36,
+    "ai/ai/nano-banana-2": 9,
+    "ai/ai/novaanimexl_ilv140": 18,
+    "ai/ai/playground-v2.5-1024px-aesthetic": 23,
+    "ai/ai/qwen-image": 17,
+    "ai/ai/realistic_vision_v5.1_novae": 19,
+    "ai/ai/realvisxl_v4.0": 1,
+    "ai/ai/sd-1.5": 45,
+    "ai/ai/sd-1.5-dreamshaper": 50,
+    "ai/ai/sd-1.5-epicdream": 46,
+    "ai/ai/sd-2.1": 43,
+    "ai/ai/sd-turbo": 34,
+    "ai/ai/sd-xl-v1.0-vae-fix": 19,
+    "ai/ai/sdxl-1.0": 4,
+    "ai/ai/sdxl-epic-realism": 47,
+    "ai/ai/sdxl-juggernaut": 43,
+    "ai/ai/sdxl-realvis-v5": 47,
+    "ai/ai/sdxl-touchofrealism": 49,
+    "ai/ai/sdxl-turbo": 22,
+    "ai/ai/seedream-v4.0": 12,
+    "ai/ai/seedream-v4.5": 6,
+    "ai/ai/stable-diffusion-v1-4": 21,
+    "ai/ai/stable-diffusion-v1-5": 38,
+    "ai/ai/stable-diffusion-xl-base-1.0": 9,
+    "ai/ai/studio-ghibli-wan2.1-t2v-14b-v1.0": 20,
+    "ai/ai/twbabeflux-v1": 2,
+    "ai/ai/wan-video-2.1": 4,
+    "ai/ai/wan-video-2.2": 10,
+    "real/real/coco2017": 600,
+    "real/real/laion": 294,
+    "real/real/wikimedia-commons-photographs": 86
+  },
+  "issues": {
+    "unreadable": {
+      "count": 0,
+      "examples": []
+    },
+    "too_small": {
+      "count": 0,
+      "examples": []
+    },
+    "exact_duplicates": {
+      "count": 0,
+      "examples": []
+    },
+    "label_conflicts": {
+      "count": 9,
+      "examples": [
+        "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\datasets\\canonical_holdout_v1\\train\\images\\000104.jpg",
+        "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\datasets\\canonical_holdout_v1\\train\\images\\000140.jpg",
+        "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\datasets\\canonical_holdout_v1\\train\\images\\000279.jpg",
+        "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\datasets\\canonical_holdout_v1\\train\\images\\001578.jpg",
+        "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\datasets\\canonical_holdout_v1\\train\\images\\001629.jpg"
+      ]
+    }
+  },
+  "n_duplicate_clusters": 2237,
+  "formats": {
+    "real": {
+      "JPEG": 980
+    },
+    "ai": {
+      "JPEG": 1270
+    }
+  },
+  "size_stats": {
+    "real": {
+      "median_width": 512.0,
+      "median_height": 512.0,
+      "median_bytes_per_pixel": 0.2784557342529297
+    },
+    "ai": {
+      "median_width": 512.0,
+      "median_height": 512.0,
+      "median_bytes_per_pixel": 0.2746257781982422
+    }
+  },
+  "warnings": [
+    "9 files skipped: label conflicts"
+  ],
+  "file_cue_auc": 0.5282926241362687
+}

@@ -1,0 +1,40 @@
+{
+  "metrics": {
+    "n": 100,
+    "n_ai": 50,
+    "n_real": 50,
+    "threshold": 0.6354355861544609,
+    "accuracy": 0.52,
+    "balanced_accuracy": 0.52,
+    "precision": 0.5102040816326531,
+    "recall_ai": 1.0,
+    "specificity_real": 0.04,
+    "f1": 0.6756756756756758,
+    "confusion": {
+      "tn": 2,
+      "fp": 48,
+      "fn": 0,
+      "tp": 50
+    },
+    "roc_auc": 0.6984,
+    "average_precision": 0.7023962670464121,
+    "tpr_at_1pct_fpr": 0.08,
+    "tpr_at_5pct_fpr": 0.12,
+    "brier": 0.3663957356480647,
+    "log_loss": 1.0668799716422084,
+    "ece": 0.3691997200250625,
+    "uncertain_band": {
+      "margin": 0.15,
+      "coverage": 0.83,
+      "accuracy_when_decided": 0.5421686746987951
+    },
+    "by_source": {
+      "hf_140k_stylegan_test": {
+        "n": 100,
+        "label": "mixed",
+        "accuracy": 0.52,
+        "mean_prob_ai": 0.8691997200250625
+      }
+    }
+  }
+}

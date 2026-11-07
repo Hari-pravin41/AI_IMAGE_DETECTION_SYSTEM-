@@ -1,0 +1,11 @@
+pyproject.toml
+src/aidetect/config.py
+src/aidetect/features.py
+src/aidetect/imaging.py
+src/aidetect/provenance.py
+src/aidetect.egg-info/PKG-INFO
+src/aidetect.egg-info/SOURCES.txt
+src/aidetect.egg-info/dependency_links.txt
+src/aidetect.egg-info/entry_points.txt
+src/aidetect.egg-info/requires.txt
+src/aidetect.egg-info/top_level.txt

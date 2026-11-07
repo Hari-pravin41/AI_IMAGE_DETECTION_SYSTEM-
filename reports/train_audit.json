@@ -1,0 +1,97 @@
+{
+  "n_usable": 156,
+  "per_class": {
+    "real": 77,
+    "ai": 79
+  },
+  "sources": {
+    "ai/amateur-photography-v5-final": 1,
+    "ai/anima-preview": 1,
+    "ai/animagine-xl-3.1": 1,
+    "ai/chroma": 1,
+    "ai/cyberrealistic-pony-v14.1": 1,
+    "ai/dalle-3": 1,
+    "ai/flux-1.1-pro": 2,
+    "ai/flux-mvc5000": 1,
+    "ai/flux-realism": 1,
+    "ai/flux.1-dev": 6,
+    "ai/flux.1-schnell": 1,
+    "ai/flux.2-dev": 1,
+    "ai/flux.2-klein-4b": 2,
+    "ai/flux.2-klein-base-4b": 1,
+    "ai/gpt-image-1": 2,
+    "ai/hidream-i1-full": 1,
+    "ai/imagen-4.0": 2,
+    "ai/midjourney-6": 2,
+    "ai/mystic": 3,
+    "ai/novaanimexl_ilv140": 1,
+    "ai/realistic_vision_v5.1_novae": 1,
+    "ai/sd-1.5": 1,
+    "ai/sd-1.5-dreamshaper": 4,
+    "ai/sd-2.1": 8,
+    "ai/sd-3.5": 15,
+    "ai/sdxl": 2,
+    "ai/sdxl-epic-realism": 3,
+    "ai/sdxl-juggernaut": 2,
+    "ai/sdxl-realvis-v5": 3,
+    "ai/sdxl-touchofrealism": 4,
+    "ai/sdxl-turbo": 1,
+    "ai/stable-diffusion-v1-5": 1,
+    "ai/tiny-random-sana": 2,
+    "real/laion": 42,
+    "real/pexels": 35
+  },
+  "issues": {
+    "unreadable": {
+      "count": 0,
+      "examples": []
+    },
+    "too_small": {
+      "count": 2,
+      "examples": [
+        "datasets\\openfake_v2_starter\\train\\real\\laion\\openfake-78614b1eddedeb1e65a56214c864702a.jpg: 116x160",
+        "datasets\\openfake_v2_starter\\train\\real\\laion\\openfake-8282e6e294204caa7f20d4393690aa1a.jpg: 88x205"
+      ]
+    },
+    "exact_duplicates": {
+      "count": 0,
+      "examples": []
+    },
+    "label_conflicts": {
+      "count": 2,
+      "examples": [
+        "datasets\\openfake_v2_starter\\train\\fake\\hidream-i1-full\\openfake-53a180336dbb46e9482b511dbe35d238.jpg",
+        "datasets\\openfake_v2_starter\\train\\real\\pexels\\openfake-9233537e460848395cd9b67b53930697.jpg"
+      ]
+    }
+  },
+  "n_duplicate_clusters": 156,
+  "formats": {
+    "real": {
+      "JPEG": 76,
+      "PNG": 1
+    },
+    "ai": {
+      "JPEG": 79
+    }
+  },
+  "size_stats": {
+    "real": {
+      "median_width": 1140.0,
+      "median_height": 930.0,
+      "median_bytes_per_pixel": 0.13907998326256082
+    },
+    "ai": {
+      "median_width": 1024.0,
+      "median_height": 1024.0,
+      "median_bytes_per_pixel": 0.13074779510498047
+    }
+  },
+  "warnings": [
+    "fewer than 100 images in one class: expect unstable metrics; more data helps a lot",
+    "2 files skipped: too small",
+    "2 files skipped: label conflicts",
+    "file-level cues alone (format/size/bytes-per-pixel) separate your classes with AUC=0.98. A model could learn those shortcuts instead of image content. Keep use_metadata_features off (default), keep augment_copies>=1, and ideally re-encode both classes the same way."
+  ],
+  "file_cue_auc": 0.9790399473943778
+}

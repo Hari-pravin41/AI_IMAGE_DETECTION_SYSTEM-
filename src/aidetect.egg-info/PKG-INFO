@@ -1,0 +1,18 @@
+Metadata-Version: 2.4
+Name: aidetect
+Version: 1.0.0
+Summary: Forensic AI-generated image detector: train on your own labeled images, then analyze single images or whole folders.
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.24
+Requires-Dist: scipy>=1.10
+Requires-Dist: Pillow>=9.5
+Requires-Dist: scikit-learn>=1.3
+Requires-Dist: joblib>=1.3
+Requires-Dist: matplotlib>=3.7
+Requires-Dist: PyYAML>=6.0
+Provides-Extra: app
+Requires-Dist: streamlit>=1.30; extra == "app"
+Requires-Dist: pandas>=1.5; extra == "app"
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4; extra == "dev"

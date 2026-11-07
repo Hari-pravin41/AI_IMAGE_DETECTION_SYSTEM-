@@ -1,0 +1,119 @@
+{
+  "n_usable": 486,
+  "per_class": {
+    "real": 86,
+    "ai": 400
+  },
+  "sources": {
+    "ai/amateur-photography-v6": 1,
+    "ai/anima-preview": 10,
+    "ai/anima-preview2": 2,
+    "ai/animagine-xl-3.0": 5,
+    "ai/animagine-xl-3.1": 2,
+    "ai/animagine-xl-4.0": 6,
+    "ai/chroma": 7,
+    "ai/cyberrealistic-pony-v14.0": 2,
+    "ai/cyberrealistic-pony-v14.1": 5,
+    "ai/cyberrealistic-pony-v15.0": 3,
+    "ai/cyberrealistic-pony-v16.0": 1,
+    "ai/cyberrealistic-pony-v17.0": 2,
+    "ai/cyberrealistic-xl-v9.0": 3,
+    "ai/dalle-3": 11,
+    "ai/flux-1.1-pro": 8,
+    "ai/flux-amateursnapshotphotos": 5,
+    "ai/flux-mvc5000": 9,
+    "ai/flux-realism": 3,
+    "ai/flux.1-dev": 12,
+    "ai/flux.1-schnell": 9,
+    "ai/flux.2-dev": 7,
+    "ai/flux.2-klein-4b": 5,
+    "ai/flux.2-klein-base-4b": 8,
+    "ai/gpt-image-1": 11,
+    "ai/grok-2-image-1212": 11,
+    "ai/grok-imagine": 2,
+    "ai/hidream-i1-full": 11,
+    "ai/ideogram-3.0": 8,
+    "ai/imagen-3.0-002": 5,
+    "ai/imagen-4.0": 7,
+    "ai/kolors-v1.0": 4,
+    "ai/ltxv-2.3": 1,
+    "ai/midjourney-6": 8,
+    "ai/mystic": 7,
+    "ai/nano-banana-2": 3,
+    "ai/novaanimexl_ilv140": 5,
+    "ai/one-obsession-17-red-sdxl": 1,
+    "ai/playground-v2.5-1024px-aesthetic": 7,
+    "ai/pony": 2,
+    "ai/qwen-image": 9,
+    "ai/realistic_vision_v5.1_novae": 7,
+    "ai/sd-1.5": 10,
+    "ai/sd-1.5-dreamshaper": 12,
+    "ai/sd-1.5-epicdream": 9,
+    "ai/sd-2.1": 6,
+    "ai/sd-3.5": 8,
+    "ai/sd-turbo": 11,
+    "ai/sd-xl-v1.0-vae-fix": 7,
+    "ai/sdxl": 11,
+    "ai/sdxl-epic-realism": 9,
+    "ai/sdxl-juggernaut": 9,
+    "ai/sdxl-realvis-v5": 9,
+    "ai/sdxl-touchofrealism": 11,
+    "ai/sdxl-turbo": 7,
+    "ai/seedream-v4.0": 4,
+    "ai/seedream-v4.5": 2,
+    "ai/stable-diffusion-v1-4": 5,
+    "ai/stable-diffusion-v1-5": 9,
+    "ai/stable-diffusion-xl-base-1.0": 3,
+    "ai/studio-ghibli-wan2.1-t2v-14b-v1.0": 8,
+    "ai/tiny-random-sana": 11,
+    "ai/wan-video-2.1": 1,
+    "ai/wan-video-2.2": 3,
+    "real/wikimedia-commons-photographs": 86
+  },
+  "issues": {
+    "unreadable": {
+      "count": 0,
+      "examples": []
+    },
+    "too_small": {
+      "count": 0,
+      "examples": []
+    },
+    "exact_duplicates": {
+      "count": 0,
+      "examples": []
+    },
+    "label_conflicts": {
+      "count": 0,
+      "examples": []
+    }
+  },
+  "n_duplicate_clusters": 486,
+  "formats": {
+    "real": {
+      "JPEG": 86
+    },
+    "ai": {
+      "JPEG": 397,
+      "PNG": 3
+    }
+  },
+  "size_stats": {
+    "real": {
+      "median_width": 1280.0,
+      "median_height": 856.0,
+      "median_bytes_per_pixel": 0.2582076299758185
+    },
+    "ai": {
+      "median_width": 1024.0,
+      "median_height": 1024.0,
+      "median_bytes_per_pixel": 0.12258388378002025
+    }
+  },
+  "warnings": [
+    "fewer than 100 images in one class: expect unstable metrics; more data helps a lot",
+    "classes are imbalanced (>3:1); class weights are applied but balanced data is better",
+    "file-level cues alone (format/size/bytes-per-pixel) separate your classes with AUC=0.99. A model could learn those shortcuts instead of image content. Keep use_metadata_features off (default), keep augment_copies>=1, and ideally re-encode both classes the same way."
+  ],
+  "file_cue_auc": 0.9942441860465115
+}

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in | AI Image Detection System</title>
+  <style>
+    :root{--navy:#172033;--brand:#6758e8;--brand-dark:#5144c8;--muted:#707a8f;--line:#e4e7ef;--error:#b4232c;--success:#14805e}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;font:15px/1.5 Inter,Segoe UI,system-ui;color:var(--navy);background:#f4f6fb}
+    .shell{min-height:100vh;display:grid;grid-template-columns:minmax(320px,1fr) minmax(380px,1.15fr)}
+    .brand-panel{position:relative;overflow:hidden;padding:64px;color:white;background:linear-gradient(145deg,#171538,#4e45b8 58%,#8f7df0);display:flex;flex-direction:column;justify-content:space-between}
+    .brand-panel::before,.brand-panel::after{content:"";position:absolute;border-radius:50%;filter:blur(2px);pointer-events:none}.brand-panel::before{width:420px;height:420px;background:rgba(255,255,255,.07);right:-180px;top:-160px}.brand-panel::after{width:260px;height:260px;border:1px solid rgba(255,255,255,.14);left:-90px;bottom:-100px}
+    .brand-panel>*{position:relative;z-index:1}.brand{font-size:24px;font-weight:800;display:flex;gap:12px;align-items:center}.mark{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:white;color:#6758e8;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+    .brand-panel h1{font-size:48px;line-height:1.08;max-width:560px;margin-bottom:18px}.brand-panel p{font-size:18px;color:#e9e7ff;max-width:560px}.trust{font-size:13px;color:#dcd9ff}
+    .auth-panel{display:grid;place-items:center;padding:32px;background:radial-gradient(circle at 80% 0%,rgba(103,88,232,.08),transparent 32%),#f4f6fb}.auth-card{width:min(420px,100%)}.auth-card>h1{font-size:32px;margin:0 0 5px}.subtitle{color:var(--muted);margin:0 0 24px}.tabs{display:grid;grid-template-columns:1fr 1fr;background:#e9ebf2;border-radius:12px;padding:4px;margin-bottom:28px}
+    button.tab{border:0;background:transparent;padding:10px;border-radius:9px;color:var(--muted);font-weight:700;cursor:pointer;transition:.2s}button.tab.active{background:white;color:var(--brand-dark);box-shadow:0 4px 14px rgba(30,38,70,.09)}
+    label{display:block;font-weight:700;margin:16px 0 7px}input{width:100%;border:1px solid var(--line);border-radius:10px;padding:13px 14px;font:inherit;background:white;transition:.2s}
+    input:focus{outline:3px solid rgba(103,88,232,.14);border-color:var(--brand)}.password-wrap{position:relative}.password-wrap input{padding-right:48px}.visibility{position:absolute;right:8px;top:7px;border:0;background:transparent;width:38px;height:38px;border-radius:8px;color:var(--muted);cursor:pointer}
+    .submit{width:100%;border:0;border-radius:10px;padding:13px;margin-top:22px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:white;font-weight:800;cursor:pointer;box-shadow:0 12px 24px rgba(103,88,232,.22);transition:.2s}.submit:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 16px 28px rgba(103,88,232,.28)}
+    .submit:disabled{opacity:.6;cursor:wait}.message{min-height:22px;color:var(--error);margin-top:14px}.message.success{color:var(--success)}.fine{color:var(--muted);font-size:12px;text-align:center;margin-top:18px}[hidden]{display:none!important}
+    .forgot-row{text-align:right;margin-top:-2px}.forgot-row button{border:0;background:none;color:var(--brand-dark);font-weight:700;cursor:pointer;padding:5px}
+    dialog{border:0;border-radius:16px;width:min(420px,calc(100% - 32px));padding:0;box-shadow:0 24px 80px rgba(14,20,44,.28)}dialog::backdrop{background:rgba(23,32,51,.48)}.dialog-body{padding:26px}.dialog-body h2{margin:0 0 6px}.dialog-body p{color:var(--muted)}.dialog-actions{display:flex;gap:10px;margin-top:20px}.dialog-actions button{flex:1;padding:11px;border-radius:9px;font-weight:700;cursor:pointer}.cancel{border:1px solid var(--line);background:white}.send{border:0;background:var(--brand);color:white}
+    .strength{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px}.strength span{height:4px;border-radius:4px;background:#dfe2ea}.strength[data-score="1"] span:nth-child(-n+1){background:#d95f67}.strength[data-score="2"] span:nth-child(-n+2){background:#d8992b}.strength[data-score="3"] span:nth-child(-n+3){background:#7d8fd4}.strength[data-score="4"] span{background:var(--success)}.strength-text{min-height:18px;color:var(--muted);font-size:12px;margin-top:5px}
+    :root{--auth-dark:#070b08;--auth-lime:#98efc2}
+    body.auth-cinematic{background:var(--auth-dark);color:#edf6f1}.auth-cinematic .shell{grid-template-columns:minmax(380px,.92fr) minmax(420px,1.08fr)}
+    .auth-cinematic .brand-panel{background:radial-gradient(520px circle at var(--mx,20%) var(--my,40%),rgba(93,220,162,.16),transparent 68%),linear-gradient(145deg,#09100c,#111c16 70%,#090d0b);border-right:1px solid rgba(255,255,255,.07)}
+    .auth-cinematic .brand-panel:before{width:520px;height:520px;right:-250px;top:-260px;border:1px solid rgba(173,255,212,.12);background:rgba(125,235,183,.025);box-shadow:0 0 100px rgba(91,225,164,.08);animation:auth-orbit 18s linear infinite}
+    .auth-cinematic .brand-panel:after{width:320px;height:320px;left:-150px;bottom:-170px;background:none;border:1px dashed rgba(173,255,212,.1);animation:auth-orbit 24s linear infinite reverse}
+    .auth-cinematic .brand-panel:after{display:block}.auth-cinematic .mark{background:linear-gradient(145deg,#eafff3,#91e8b8);color:#102019;box-shadow:0 0 28px rgba(121,232,177,.22)}
+    .auth-cinematic .brand-panel h1{font-size:54px;letter-spacing:-.035em}.auth-cinematic .brand-panel p{color:#aebbb4}.auth-cinematic .trust{color:#829087}
+    .auth-cinematic .auth-panel{background:radial-gradient(420px circle at 100% 0%,rgba(103,88,232,.08),transparent 65%),radial-gradient(500px circle at 10% 100%,rgba(90,216,160,.07),transparent 60%),#090d0b}
+    .auth-cinematic .auth-card{position:relative;width:min(440px,100%);padding:34px;border-radius:22px;border:1px solid rgba(255,255,255,.09);background:rgba(19,25,21,.78);box-shadow:0 28px 80px rgba(0,0,0,.32),inset 0 1px rgba(255,255,255,.04);backdrop-filter:blur(20px);animation:auth-card-in .65s cubic-bezier(.2,.8,.2,1)}
+    .auth-cinematic .auth-card:before{content:"";position:absolute;inset:-1px;border-radius:22px;padding:1px;background:linear-gradient(135deg,rgba(169,255,211,.16),transparent 35%,transparent 70%,rgba(103,88,232,.16));mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;pointer-events:none}
+    .auth-cinematic .subtitle{color:#9aa59e}.auth-cinematic .tabs{background:rgba(255,255,255,.055)}.auth-cinematic button.tab{color:#919d96}.auth-cinematic button.tab.active{background:rgba(255,255,255,.11);color:#caffdf;box-shadow:0 5px 16px rgba(0,0,0,.18)}
+    .auth-cinematic label{color:#dbe5df}.auth-cinematic input{color:#f4f7f5;background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.10)}.auth-cinematic input:focus{border-color:#87dfb0;box-shadow:0 0 0 4px rgba(135,223,176,.08)}.auth-cinematic input:-webkit-autofill{webkit-text-fill-color:#fff;box-shadow:0 0 0 1000px #171d19 inset}
+    .auth-cinematic .visibility{color:#99a39d}.auth-cinematic .submit{background:linear-gradient(135deg,#dfffea,#86ddb2);color:#102019;box-shadow:0 14px 32px rgba(109,220,165,.16)}
+    .auth-cinematic .forgot-row button{color:#91dfb6}.auth-cinematic .fine{color:#77827c}
+    .auth-cinematic dialog{background:#151b17;color:white}.auth-cinematic dialog::backdrop{background:rgba(0,0,0,.72)}.auth-cinematic dialog input{background:#0e130f}.auth-cinematic .cancel{background:transparent;border-color:rgba(255,255,255,.12);color:white}.auth-cinematic .send{background:#91dfb6;color:#102019}
+    @keyframes auth-orbit{to{transform:rotate(360deg)}}@keyframes auth-card-in{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+    @media(max-width:850px){.shell{grid-template-columns:1fr}.brand-panel{min-height:260px;padding:32px}.brand-panel h1{font-size:36px}.brand-panel h1+.tagline{display:none}.auth-panel{padding:28px 20px}.auth-cinematic .brand-panel h1{font-size:36px}.auth-cinematic .auth-card{padding:26px 22px}}
+    #auth-ambient{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.4}.shell{position:relative;z-index:1}.brand-panel{isolation:isolate}.brand-panel:after{box-shadow:0 0 120px rgba(137,239,190,.08)}
+  </style>
+</head>
+<body class="auth-cinematic">
+  <canvas id="auth-ambient" aria-hidden="true"></canvas>
+  <div class="shell">
+    <section class="brand-panel">
+      <div class="brand"><span class="mark">AI</span><span>AI Image Detection System</span></div>
+      <div><h1>Evidence-led visual image assessment.</h1><p class="tagline">Review image characteristics, technical facts, and alternatives in one protected workspace.</p></div>
+      <div class="trust">Secure local account &middot; Private analysis history &middot; PDF reports</div>
+    </section>
+    <main class="auth-panel">
+      <form class="auth-card" id="auth-form">
+        <div class="tabs"><button class="tab active" type="button" data-mode="login">Sign in</button><button class="tab" type="button" data-mode="register">Create account</button></div>
+        <h1 id="heading">Welcome back</h1>
+        <p class="subtitle" id="subtitle">Sign in to continue to your analysis workspace.</p>
+        <div id="name-field" hidden><label for="name">Full name</label><input id="name" autocomplete="name" maxlength="80"></div>
+        <label for="email">Email address</label><input id="email" type="email" autocomplete="email" required maxlength="254">
+        <label for="password">Password</label><div class="password-wrap"><input id="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128"><button class="visibility" id="visibility" type="button" aria-label="Show password">Show</button></div>
+        <div id="confirm-field" hidden><label for="confirm-password">Confirm password</label><div class="password-wrap"><input id="confirm-password" type="password" autocomplete="new-password" minlength="8" maxlength="128"></div></div>
+        <div id="strength-panel" hidden><div class="strength" id="strength"><span></span><span></span><span></span><span></span></div><div class="strength-text" id="strength-text"></div></div>
+        <div class="forgot-row" id="forgot-row"><button type="button" id="forgot-button">Forgot password?</button></div>
+        <button class="submit" type="submit">Sign in</button>
+        <div class="message" id="message" role="alert"></div>
+        <p class="fine">Your password is stored only as a secure hash. Do not use a password reused elsewhere.</p>
+      </form>
+    </main>
+  </div>
+  <dialog id="forgot-dialog">
+    <form class="dialog-body" id="forgot-form">
+      <h2>Reset your password</h2>
+      <p>Enter the email address for your account. We will send reset instructions if an account exists.</p>
+      <label for="forgot-email">Email address</label><input id="forgot-email" type="email" autocomplete="email" required maxlength="254">
+      <div class="message" id="forgot-message" role="status"></div>
+      <div class="dialog-actions"><button type="button" class="cancel" id="forgot-cancel">Cancel</button><button type="submit" class="send">Send reset link</button></div>
+    </form>
+  </dialog>
+  <script>
+    if(window.matchMedia('(pointer:fine)').matches) {
+      window.addEventListener('pointermove', event => {
+        document.body.style.setProperty('--mx', `${event.clientX}px`);
+        document.body.style.setProperty('--my', `${event.clientY}px`);
+      }, {passive:true});
+      const card = document.querySelector('.auth-card');
+      document.querySelector('.auth-panel')?.addEventListener('pointermove', event => {
+        const bounds = card.getBoundingClientRect();
+        const x = (event.clientX - bounds.left) / bounds.width - .5;
+        const y = (event.clientY - bounds.top) / bounds.height - .5;
+        card.style.transform = `perspective(900px) rotateY(${x * 2.2}deg) rotateX(${-y * 2.2}deg)`;
+      });
+      document.querySelector('.auth-panel')?.addEventListener('pointerleave', () => { card.style.transform = ''; });
+    }
+    let mode='login';
+    const form=document.querySelector('#auth-form'), tabs=[...document.querySelectorAll('.tab')];
+    tabs.forEach(t=>t.addEventListener('click',()=>document.querySelector('#forgot-row').hidden=(t.dataset.mode!== 'login')));
+    if(location.hash === '#register') setTimeout(()=>tabs.find(t=>t.dataset.mode==='register')?.click(),0);
+    function setMode(next){mode=next; tabs.forEach(t=>t.classList.toggle('active',t.dataset.mode===mode)); document.querySelector('#name-field').hidden=mode==='login'; document.querySelector('#confirm-field').hidden=mode==='login'; document.querySelector('#confirm-password').required=mode==='register'; document.querySelector('#heading').textContent=mode==='login'?'Welcome back':'Create your account'; document.querySelector('#subtitle').textContent=mode==='login'?'Sign in to continue to your analysis workspace.':'Create a private workspace for reports and history.'; document.querySelector('.submit').textContent=mode==='login'?'Sign in':'Create account'; document.querySelector('#password').autocomplete=mode==='login'?'current-password':'new-password'; document.querySelector('#password').type='password'; document.querySelector('#visibility').textContent='Show'; document.querySelector('#visibility').setAttribute('aria-label','Show password'); document.querySelector('#forgot-row').hidden=mode!== 'login'; document.querySelector('#strength-panel').hidden=mode==='login'; document.querySelector('#message').textContent='';}
+    tabs.forEach(t=>t.addEventListener('click',()=>setMode(t.dataset.mode)));
+    document.querySelector('#visibility').addEventListener('click',()=>{
+      const field=document.querySelector('#password'), visible=field.type==='text'; field.type=visible?'password':'text'; document.querySelector('#visibility').textContent=visible?'Show':'Hide'; document.querySelector('#visibility').setAttribute('aria-label',visible?'Show password':'Hide password');
+    });
+    document.querySelector('#password').addEventListener('input',event=>{
+      if(mode==='login') return;
+      const value=event.target.value, score=[value.length>=8,/[a-z]/.test(value)&&/[A-Z]/.test(value),/\d/.test(value),/[^A-Za-z0-9]/.test(value)].filter(Boolean).length;
+      document.querySelector('#strength').dataset.score=String(score); document.querySelector('#strength-text').textContent=['','Weak password','Fair password','Strong password','Excellent password'][score];
+    });
+    form.addEventListener('submit',async event=>{
+      event.preventDefault();
+      const button=form.querySelector('.submit'), message=document.querySelector('#message'); button.disabled=true; button.textContent=mode==='login'?'Signing in…':'Creating account…'; message.textContent='';
+      try{
+        const password=document.querySelector('#password').value, confirmation=document.querySelector('#confirm-password').value;
+        if(mode==='register' && password!==confirmation) throw new Error('Password and confirmation must match exactly. Passwords are case-sensitive.');
+        const response=await fetch(mode==='login'?'/api/auth/login':'/api/auth/register',{method:'POST',headers:{'Content-Type':'application/json','Cache-Control':'no-store'},body:JSON.stringify({email:document.querySelector('#email').value.trim(),name:document.querySelector('#name').value.trim(),password,confirmation_password:confirmation})});
+        const payload=await response.json(); if(!response.ok) throw new Error(payload.error||'Authentication failed.');
+        location.assign('/');
+      }catch(error){message.textContent=error.message||String(error);}finally{button.disabled=false; button.textContent=mode==='login'?'Sign in':'Create account';}
+    });
+    document.querySelector('#forgot-button').addEventListener('click',()=>document.querySelector('#forgot-dialog').showModal());
+    document.querySelector('#forgot-cancel').addEventListener('click',()=>document.querySelector('#forgot-dialog').close());
+    document.querySelector('#forgot-form').addEventListener('submit',async event=>{
+      event.preventDefault();
+      const button=event.currentTarget.querySelector('.send'), output=document.querySelector('#forgot-message');
+      button.disabled=true; button.textContent='Sending…'; output.textContent='';
+      try{
+        const response=await fetch('/api/auth/forgot-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:document.querySelector('#forgot-email').value})});
+        const payload=await response.json(); if(!response.ok) throw new Error(payload.error||'Request failed.');
+        output.classList.add('success'); output.textContent=payload.message;
+        button.textContent='Request sent';
+      }catch(error){output.classList.remove('success'); output.textContent=error.message||String(error); button.disabled=false; button.textContent='Send reset link';}
+    });
+    const authAmbient=document.querySelector('#auth-ambient');
+    if(authAmbient&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      const ctx=authAmbient.getContext('2d');let width=0,height=0,dots=[];
+      const resize=()=>{width=authAmbient.width=innerWidth;height=authAmbient.height=innerHeight;dots=Array.from({length:Math.min(95,Math.round(width/16))},()=>({x:Math.random()*width,y:Math.random()*height,r:Math.random()*1.2+.2,phase:Math.random()*6.28,speed:Math.random()*.00018+.00005}))};
+      const draw=time=>{ctx.clearRect(0,0,width,height);dots.forEach(dot=>{const x=dot.x+Math.sin(time*dot.speed+dot.phase)*12,y=dot.y+Math.cos(time*dot.speed+dot.phase)*8;ctx.beginPath();ctx.arc(x,y,dot.r,0,Math.PI*2);ctx.fillStyle='rgba(154,238,195,.16)';ctx.fill()});requestAnimationFrame(draw)};
+      window.addEventListener('resize',resize);resize();requestAnimationFrame(draw);
+    }
+  </script>
+</body>
+</html>

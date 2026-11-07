@@ -1,0 +1,124 @@
+{
+  "metrics": {
+    "n": 624,
+    "n_ai": 326,
+    "n_real": 298,
+    "threshold": 0.6768736107349396,
+    "accuracy": 0.6602564102564102,
+    "balanced_accuracy": 0.6706674352534278,
+    "precision": 0.8313953488372093,
+    "recall_ai": 0.4386503067484663,
+    "specificity_real": 0.9026845637583892,
+    "f1": 0.5742971887550201,
+    "confusion": {
+      "tn": 269,
+      "fp": 29,
+      "fn": 183,
+      "tp": 143
+    },
+    "roc_auc": 0.7937579775188373,
+    "average_precision": 0.7888048142081301,
+    "tpr_at_1pct_fpr": 0.024539877300613498,
+    "tpr_at_5pct_fpr": 0.3098159509202454,
+    "brier": 0.19507838328708407,
+    "log_loss": 0.5934846947195581,
+    "ece": 0.09437085660875966,
+    "uncertain_band": {
+      "margin": 0.15,
+      "coverage": 0.7483974358974359,
+      "accuracy_when_decided": 0.7109207708779444
+    },
+    "by_source": {
+      "ai/animagine-xl-3.1": {
+        "n": 11,
+        "label": "ai",
+        "accuracy": 0.8181818181818182,
+        "mean_prob_ai": 0.7883511185646057
+      },
+      "ai/chroma": {
+        "n": 26,
+        "label": "ai",
+        "accuracy": 0.38461538461538464,
+        "mean_prob_ai": 0.5180253873650844
+      },
+      "ai/cyberrealistic-pony-v14.0": {
+        "n": 9,
+        "label": "ai",
+        "accuracy": 0.7777777777777778,
+        "mean_prob_ai": 0.6849489137530327
+      },
+      "ai/flux-1.1-pro": {
+        "n": 45,
+        "label": "ai",
+        "accuracy": 0.4,
+        "mean_prob_ai": 0.5610458730823464
+      },
+      "ai/flux-amateursnapshotphotos": {
+        "n": 13,
+        "label": "ai",
+        "accuracy": 0.38461538461538464,
+        "mean_prob_ai": 0.5333737676533369
+      },
+      "ai/flux-realism": {
+        "n": 7,
+        "label": "ai",
+        "accuracy": 0.2857142857142857,
+        "mean_prob_ai": 0.545191017644746
+      },
+      "ai/flux.1-schnell": {
+        "n": 48,
+        "label": "ai",
+        "accuracy": 0.5208333333333334,
+        "mean_prob_ai": 0.6208903823280707
+      },
+      "ai/flux.2-klein-4b": {
+        "n": 24,
+        "label": "ai",
+        "accuracy": 0.625,
+        "mean_prob_ai": 0.7101508422444264
+      },
+      "ai/one-obsession-17-red-sdxl": {
+        "n": 9,
+        "label": "ai",
+        "accuracy": 0.4444444444444444,
+        "mean_prob_ai": 0.583804227411747
+      },
+      "ai/openflux.1": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.75,
+        "mean_prob_ai": 0.8404429852962494
+      },
+      "ai/pony": {
+        "n": 6,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.8401552438735962
+      },
+      "ai/sd-3.5": {
+        "n": 47,
+        "label": "ai",
+        "accuracy": 0.3829787234042553,
+        "mean_prob_ai": 0.5249399382700312
+      },
+      "ai/sdxl": {
+        "n": 49,
+        "label": "ai",
+        "accuracy": 0.42857142857142855,
+        "mean_prob_ai": 0.571436982373802
+      },
+      "ai/tiny-random-sana": {
+        "n": 28,
+        "label": "ai",
+        "accuracy": 0.0,
+        "mean_prob_ai": 0.52100777306727
+      },
+      "real/pexels": {
+        "n": 298,
+        "label": "real",
+        "accuracy": 0.9026845637583892,
+        "mean_prob_ai": 0.2807113536767937
+      }
+    }
+  }
+}

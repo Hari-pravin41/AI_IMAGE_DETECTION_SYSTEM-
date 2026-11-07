@@ -1,0 +1,163 @@
+{
+  "n_failed": 0,
+  "metrics": {
+    "n": 80,
+    "n_ai": 40,
+    "n_real": 40,
+    "threshold": 0.575089989272255,
+    "accuracy": 0.75,
+    "balanced_accuracy": 0.75,
+    "precision": 0.7941176470588235,
+    "recall_ai": 0.675,
+    "specificity_real": 0.825,
+    "f1": 0.7297297297297296,
+    "confusion": {
+      "tn": 33,
+      "fp": 7,
+      "fn": 13,
+      "tp": 27
+    },
+    "roc_auc": 0.816875,
+    "average_precision": 0.8274883050044846,
+    "tpr_at_1pct_fpr": 0.15,
+    "tpr_at_5pct_fpr": 0.5,
+    "brier": 0.17697250896858782,
+    "log_loss": 0.5376909845766231,
+    "ece": 0.10880207830022105,
+    "uncertain_band": {
+      "margin": 0.15,
+      "coverage": 0.6375,
+      "accuracy_when_decided": 0.8235294117647058
+    },
+    "by_source": {
+      "docci": {
+        "n": 10,
+        "label": "real",
+        "accuracy": 0.6,
+        "mean_prob_ai": 0.46868224196514996
+      },
+      "ernie-image-turbo": {
+        "n": 2,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.6107562471044059
+      },
+      "flux.2-klein-9b": {
+        "n": 6,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.6168856334579814
+      },
+      "gpt-image-1.5": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.717806814002246
+      },
+      "ideogram-2.0": {
+        "n": 1,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.8816900951761046
+      },
+      "illustrious": {
+        "n": 5,
+        "label": "ai",
+        "accuracy": 0.8,
+        "mean_prob_ai": 0.6905662831135984
+      },
+      "imagenet": {
+        "n": 30,
+        "label": "real",
+        "accuracy": 0.9,
+        "mean_prob_ai": 0.3207118703886875
+      },
+      "midjourney-7": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.75,
+        "mean_prob_ai": 0.7384977981307163
+      },
+      "seedream-v5.0": {
+        "n": 1,
+        "label": "ai",
+        "accuracy": 0.0,
+        "mean_prob_ai": 0.5040143491432569
+      },
+      "sora-2": {
+        "n": 1,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.7243695213770285
+      },
+      "wan-video-2.5": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.6163458473093387
+      },
+      "z-image-turbo": {
+        "n": 14,
+        "label": "ai",
+        "accuracy": 0.5714285714285714,
+        "mean_prob_ai": 0.581945700940424
+      }
+    }
+  },
+  "robustness": {
+    "jpeg_q90": {
+      "roc_auc": 0.8162499999999999,
+      "accuracy": 0.7,
+      "balanced_accuracy": 0.7,
+      "recall_ai": 0.875,
+      "specificity_real": 0.525,
+      "auc_drop": 0.0006250000000000977,
+      "n": 80
+    },
+    "jpeg_q70": {
+      "roc_auc": 0.7962499999999999,
+      "accuracy": 0.7125,
+      "balanced_accuracy": 0.7124999999999999,
+      "recall_ai": 0.475,
+      "specificity_real": 0.95,
+      "auc_drop": 0.020625000000000115,
+      "n": 80
+    },
+    "resize_0.75": {
+      "roc_auc": 0.7175,
+      "accuracy": 0.6375,
+      "balanced_accuracy": 0.6375,
+      "recall_ai": 0.5,
+      "specificity_real": 0.775,
+      "auc_drop": 0.09937499999999999,
+      "n": 80
+    },
+    "blur_1.0": {
+      "roc_auc": 0.69375,
+      "accuracy": 0.6875,
+      "balanced_accuracy": 0.6875,
+      "recall_ai": 0.575,
+      "specificity_real": 0.8,
+      "auc_drop": 0.12312500000000004,
+      "n": 80
+    },
+    "noise_3": {
+      "roc_auc": 0.801875,
+      "accuracy": 0.75,
+      "balanced_accuracy": 0.75,
+      "recall_ai": 0.875,
+      "specificity_real": 0.625,
+      "auc_drop": 0.015000000000000013,
+      "n": 80
+    },
+    "social_media": {
+      "roc_auc": 0.8200000000000001,
+      "accuracy": 0.7375,
+      "balanced_accuracy": 0.7375,
+      "recall_ai": 0.625,
+      "specificity_real": 0.85,
+      "auc_drop": -0.0031250000000000444,
+      "n": 80
+    }
+  }
+}

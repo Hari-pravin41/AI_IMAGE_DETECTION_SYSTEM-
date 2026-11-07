@@ -1,0 +1,46 @@
+[
+  {
+    "model": "V2",
+    "model_path": "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\models\\openfake_gpu_sources_v2",
+    "report": "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\reports\\portrait_ext100_V2_20261030_010502\\evaluation.json",
+    "n": 100,
+    "accuracy": 0.65,
+    "balanced_accuracy": 0.65,
+    "recall_ai": 0.76,
+    "specificity_real": 0.54,
+    "roc_auc": 0.7244
+  },
+  {
+    "model": "V9",
+    "model_path": "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\models\\openfake_gpu_sources_v9_multidomain_overnight_v1",
+    "report": "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\reports\\portrait_ext100_V9_20261030_010502\\evaluation.json",
+    "n": 100,
+    "accuracy": 0.52,
+    "balanced_accuracy": 0.52,
+    "recall_ai": 1.0,
+    "specificity_real": 0.04,
+    "roc_auc": 0.6984
+  },
+  {
+    "model": "V10_portrait",
+    "model_path": "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\models\\openfake_gpu_portrait_v10_20261029_233750",
+    "report": "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\reports\\portrait_ext100_V10_portrait_20261030_010502\\evaluation.json",
+    "n": 100,
+    "accuracy": 0.5,
+    "balanced_accuracy": 0.5,
+    "recall_ai": 1.0,
+    "specificity_real": 0.0,
+    "roc_auc": 0.6552
+  },
+  {
+    "model": "V11_moredata",
+    "model_path": "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\models\\openfake_gpu_portrait_v11_moredata_20261030_010502",
+    "report": "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\reports\\portrait_ext100_V11_moredata_20261030_010502\\evaluation.json",
+    "n": 100,
+    "accuracy": 0.83,
+    "balanced_accuracy": 0.8300000000000001,
+    "recall_ai": 0.8,
+    "specificity_real": 0.86,
+    "roc_auc": 0.9164
+  }
+]

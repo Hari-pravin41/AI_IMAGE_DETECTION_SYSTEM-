@@ -1,0 +1,58 @@
+{
+  "n_usable": 84,
+  "per_class": {
+    "real": 34,
+    "ai": 50
+  },
+  "sources": {
+    "ai/ai/flux_2_flex": 10,
+    "ai/ai/gemini_3_pro": 10,
+    "ai/ai/glm_image": 10,
+    "ai/ai/recraft_v3": 10,
+    "ai/ai/z_image": 10,
+    "real/real/arena": 34
+  },
+  "issues": {
+    "unreadable": {
+      "count": 0,
+      "examples": []
+    },
+    "too_small": {
+      "count": 0,
+      "examples": []
+    },
+    "exact_duplicates": {
+      "count": 0,
+      "examples": []
+    },
+    "label_conflicts": {
+      "count": 0,
+      "examples": []
+    }
+  },
+  "n_duplicate_clusters": 84,
+  "formats": {
+    "real": {
+      "JPEG": 34
+    },
+    "ai": {
+      "JPEG": 50
+    }
+  },
+  "size_stats": {
+    "real": {
+      "median_width": 512.0,
+      "median_height": 512.0,
+      "median_bytes_per_pixel": 0.19838523864746094
+    },
+    "ai": {
+      "median_width": 512.0,
+      "median_height": 512.0,
+      "median_bytes_per_pixel": 0.252197265625
+    }
+  },
+  "warnings": [
+    "fewer than 100 images in one class: expect unstable metrics; more data helps a lot"
+  ],
+  "file_cue_auc": 0.7123529411764706
+}

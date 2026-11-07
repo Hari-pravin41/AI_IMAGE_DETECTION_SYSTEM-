@@ -1,0 +1,81 @@
+{
+  "n_usable": 1998,
+  "per_class": {
+    "real": 1000,
+    "ai": 998
+  },
+  "sources": {
+    "ai/animal": 169,
+    "ai/art": 170,
+    "ai/food": 170,
+    "ai/landscape": 150,
+    "ai/portrait": 169,
+    "ai/product": 170,
+    "real/animal": 170,
+    "real/art": 162,
+    "real/food": 167,
+    "real/landscape": 164,
+    "real/portrait": 168,
+    "real/product": 169
+  },
+  "issues": {
+    "unreadable": {
+      "count": 0,
+      "examples": []
+    },
+    "too_small": {
+      "count": 0,
+      "examples": []
+    },
+    "exact_duplicates": {
+      "count": 7,
+      "examples": [
+        "datasets\\ai_detector_arena_v0_1_source\\benchmark-v0.1\\images\\real\\landscape\\landscape_77_rear_view_mirror_reflection_showing_a_dog_in_the_back_seat.jpg",
+        "datasets\\ai_detector_arena_v0_1_source\\benchmark-v0.1\\images\\real\\art\\art_70_art_gallery_interior_with_paintings_on_walls.jpg",
+        "datasets\\ai_detector_arena_v0_1_source\\benchmark-v0.1\\images\\real\\art\\art_56_pencil_and_watercolor_art_supplies_on_table.jpg",
+        "datasets\\ai_detector_arena_v0_1_source\\benchmark-v0.1\\images\\real\\art\\art_60_colorful_paint_brushstrokes_close_up_texture.jpg",
+        "datasets\\ai_detector_arena_v0_1_source\\benchmark-v0.1\\images\\real\\art\\art_72_pastel_colors_watercolor_wash.jpg"
+      ]
+    },
+    "label_conflicts": {
+      "count": 33,
+      "examples": [
+        "datasets\\ai_detector_arena_v0_1_source\\benchmark-v0.1\\images\\ai\\animal\\flux_schnell_animal_09.png",
+        "datasets\\ai_detector_arena_v0_1_source\\benchmark-v0.1\\images\\ai\\landscape\\flux_2_flex_landscape_04.png",
+        "datasets\\ai_detector_arena_v0_1_source\\benchmark-v0.1\\images\\ai\\landscape\\flux_2_flex_landscape_06.png",
+        "datasets\\ai_detector_arena_v0_1_source\\benchmark-v0.1\\images\\ai\\landscape\\flux_2_flex_landscape_07.png",
+        "datasets\\ai_detector_arena_v0_1_source\\benchmark-v0.1\\images\\ai\\landscape\\flux_pro_v1.1_landscape_04.png"
+      ]
+    }
+  },
+  "n_duplicate_clusters": 1996,
+  "formats": {
+    "real": {
+      "JPEG": 999,
+      "PNG": 1
+    },
+    "ai": {
+      "JPEG": 526,
+      "PNG": 412,
+      "WEBP": 60
+    }
+  },
+  "size_stats": {
+    "real": {
+      "median_width": 1920.0,
+      "median_height": 1282.0,
+      "median_bytes_per_pixel": 0.15323588053385417
+    },
+    "ai": {
+      "median_width": 1024.0,
+      "median_height": 1024.0,
+      "median_bytes_per_pixel": 0.48809385299682617
+    }
+  },
+  "warnings": [
+    "7 files skipped: exact duplicates",
+    "33 files skipped: label conflicts",
+    "file-level cues alone (format/size/bytes-per-pixel) separate your classes with AUC=1.00. A model could learn those shortcuts instead of image content. Keep use_metadata_features off (default), keep augment_copies>=1, and ideally re-encode both classes the same way."
+  ],
+  "file_cue_auc": 0.9983006012024049
+}

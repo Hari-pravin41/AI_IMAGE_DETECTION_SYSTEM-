@@ -1,0 +1,371 @@
+"""Local web UI + JSON API."""
+from __future__ import annotations
+
+import base64
+import io
+import json
+from datetime import datetime, timezone
+from pathlib import Path
+import re
+
+from flask import Flask, jsonify, render_template, request, send_file
+
+from .config import Config
+from .detector import Detector
+from .explain import render_panels
+from .forensics import build_case_report
+from .loader import ImageError, load_image
+from .pdf_report import InvalidReportError, create_pdf_report
+from .scope import SCOPE_WARNING, SUPPORTED_DOMAIN
+
+_TEMPLATES = Path(__file__).parent / "templates"
+
+
+def _remember_results(app: Flask, results: list[dict]) -> None:
+    history = app.config.setdefault("ANALYSIS_HISTORY", [])
+    for result in results:
+        report = result.get("forensic_report") if isinstance(result, dict) else None
+        if not isinstance(report, dict):
+            continue
+        history.append({
+            "case_id": report.get("case_id"),
+            "filename": report.get("file_integrity", {}).get("original_filename", result.get("name")),
+            "timestamp": report.get("analysis_timestamp_utc"),
+            "label": result.get("label"),
+            "prob_ai": result.get("prob_ai"),
+            "threshold": result.get("threshold"),
+        })
+    app.config["ANALYSIS_HISTORY"] = history[-50:]
+
+
+def _register_pdf_report_route(app: Flask, cfg: Config) -> None:
+    @app.post("/api/report/pdf")
+    def download_pdf_report():
+        raw_report = request.form.get("report")
+        if not raw_report:
+            return jsonify({"error": "include the case report in the 'report' form field"}), 400
+        try:
+            report = json.loads(raw_report)
+        except json.JSONDecodeError:
+            return jsonify({"error": "the 'report' field must contain valid JSON"}), 400
+
+        image_file = request.files.get("image")
+        image_bytes = None
+        if image_file:
+            image_bytes = image_file.read(int(cfg.max_upload_mb * 1024 * 1024) + 1)
+            if len(image_bytes) > cfg.max_upload_mb * 1024 * 1024:
+                return jsonify({"error": f"file larger than {cfg.max_upload_mb:g} MB"}), 413
+        try:
+            pdf_bytes = create_pdf_report(report, image_bytes)
+        except InvalidReportError as exc:
+            return jsonify({"error": str(exc)}), 400
+        case_id = report.get("case_id", "case") if isinstance(report, dict) else "case"
+        safe_case_id = re.sub(r"[^A-Za-z0-9._-]+", "-", str(case_id))[:64].strip(".-_")
+        return send_file(
+            io.BytesIO(pdf_bytes),
+            mimetype="application/pdf",
+            as_attachment=True,
+            download_name=f"image-forensic-report-{safe_case_id or 'case'}.pdf",
+        )
+
+
+def create_app(detector: Detector) -> Flask:
+    cfg = detector.cfg
+    app = Flask(__name__, template_folder=str(_TEMPLATES))
+    app.config["MAX_CONTENT_LENGTH"] = int(cfg.max_upload_mb * cfg.max_batch_files * 1024 * 1024)
+    app.config["ANALYSIS_HISTORY"] = []
+    _register_pdf_report_route(app, cfg)
+
+    @app.get("/")
+    def index():
+        return render_template("index.html", info=detector.info(), max_mb=cfg.max_upload_mb,
+                               max_files=cfg.max_batch_files)
+
+    @app.get("/api/health")
+    def health():
+        return jsonify({"status": "ok"})
+
+    @app.get("/api/model")
+    def model():
+        return jsonify({
+            "model_type": "forensic",
+            "supported_domain": SUPPORTED_DOMAIN,
+            "scope_warning": SCOPE_WARNING,
+            **detector.info(),
+        })
+
+    @app.post("/api/predict")
+    def predict():
+        files = request.files.getlist("files") or request.files.getlist("file")
+        if not files:
+            return jsonify({"error": "send one or more images as multipart field 'files'"}), 400
+        if len(files) > cfg.max_batch_files:
+            return jsonify({"error": f"at most {cfg.max_batch_files} files per request"}), 400
+        explain = request.form.get("explain", "1").lower() not in ("0", "false", "no")
+        out = []
+        for f in files:
+            data = f.read(int(cfg.max_upload_mb * 1024 * 1024) + 1)
+            name = Path(f.filename or "upload").name
+            if len(data) > cfg.max_upload_mb * 1024 * 1024:
+                out.append({"name": name, "ok": False, "error": f"file larger than {cfg.max_upload_mb:g} MB"})
+                continue
+            try:
+                img = load_image(data, cfg, name=name)
+            except ImageError as e:
+                out.append({"name": name, "ok": False, "error": str(e)})
+                continue
+            try:
+                pred = detector.predict_loaded(img, explain=explain)
+                d = pred.to_dict()
+                d["forensic_report"] = build_case_report(data, img, d, detector, name)
+                if explain:
+                    d["panels"] = {k: "data:image/png;base64," + base64.b64encode(v).decode()
+                                   for k, v in render_panels(img, pred).items()}
+            except Exception:
+                app.logger.exception("Image analysis failed")
+                out.append({
+                    "name": name,
+                    "ok": False,
+                    "error": "image analysis failed; see the local server log for details",
+                })
+                continue
+            out.append(d)
+        _remember_results(app, out)
+        return jsonify({"results": out})
+
+    @app.get("/api/history")
+    def history():
+        return jsonify({"history": app.config["ANALYSIS_HISTORY"][::-1]})
+
+    @app.delete("/api/history/<case_id>")
+    def delete_history(case_id):
+        app.config["ANALYSIS_HISTORY"] = [
+            item for item in app.config["ANALYSIS_HISTORY"] if item.get("case_id") != case_id
+        ]
+        return jsonify({"status": "deleted"})
+
+    @app.errorhandler(413)
+    def too_large(_e):
+        return jsonify({"error": "upload too large"}), 413
+
+    return app
+
+
+def create_gpu_app(detector, cfg: Config | None = None) -> Flask:
+    cfg = cfg or Config()
+    app = Flask(__name__, template_folder=str(_TEMPLATES))
+    app.config["MAX_CONTENT_LENGTH"] = int(cfg.max_upload_mb * cfg.max_batch_files * 1024 * 1024)
+    app.config["ANALYSIS_HISTORY"] = []
+    _register_pdf_report_route(app, cfg)
+
+    @app.get("/")
+    def index():
+        return render_template("index.html", info={"model_type": "gpu"}, max_mb=cfg.max_upload_mb,
+                               max_files=cfg.max_batch_files, model_type="gpu")
+
+    @app.get("/api/health")
+    def health():
+        return jsonify({"status": "ok"})
+
+    @app.get("/api/model")
+    def model():
+        return jsonify({"model_type": "gpu", "architecture": "ResNet-18",
+                        "threshold": detector.threshold, "device": str(detector.device),
+                        "supported_domain": SUPPORTED_DOMAIN, "scope_warning": SCOPE_WARNING})
+
+    @app.post("/api/verify-provenance")
+    def verify_provenance():
+        """Optional external check for supported OpenAI provenance signals."""
+        api_key = os.environ.get("OPENAI_API_KEY", "").strip()
+        if not api_key:
+            return jsonify({"error": "OpenAI provenance verification is not configured on this server."}), 503
+
+        uploaded = request.files.get("file")
+        if uploaded is None:
+            return jsonify({"error": "Select one image to verify."}), 400
+
+        max_bytes = min(int(cfg.max_upload_mb * 1024 * 1024), 50 * 1024 * 1024)
+        data = uploaded.read(max_bytes + 1)
+        if not data:
+            return jsonify({"error": "The uploaded file is empty."}), 400
+        if len(data) > max_bytes:
+            return jsonify({"error": "The image exceeds the provenance verification size limit."}), 413
+
+        name = Path(uploaded.filename or "upload").name
+        try:
+            loaded = load_image(data, cfg, name=name)
+        except ImageError as exc:
+            return jsonify({"error": f"Invalid image: {exc}"}), 400
+
+        media = {
+            "PNG": ("image/png", "upload.png"),
+            "JPEG": ("image/jpeg", "upload.jpg"),
+            "WEBP": ("image/webp", "upload.webp"),
+        }.get(str(loaded.format or "").upper())
+        if media is None:
+            return jsonify({"error": "External provenance checks support PNG, JPEG, and WebP images only."}), 400
+
+        mime_type, safe_filename = media
+        boundary = "----aidetect-" + secrets.token_hex(16)
+        prefix = (
+            f"--{boundary}\r\n"
+            f'Content-Disposition: form-data; name="file"; filename="{safe_filename}"\r\n'
+            f"Content-Type: {mime_type}\r\n\r\n"
+        ).encode("ascii")
+        body = prefix + data + f"\r\n--{boundary}--\r\n".encode("ascii")
+
+        req = Request(
+            "https://api.openai.com/v1/content_provenance_checks",
+            data=body,
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": f"multipart/form-data; boundary={boundary}",
+            },
+            method="POST",
+        )
+        try:
+            with urlopen(req, timeout=30) as response:
+                response_bytes = response.read(2 * 1024 * 1024 + 1)
+        except HTTPError as exc:
+            app.logger.warning("OpenAI provenance API returned HTTP %s", exc.code)
+            messages = {
+                401: "OpenAI rejected the API key. Check the key in this server's terminal.",
+                403: "The API key does not have permission for this operation.",
+                404: "Content Provenance API access is unavailable for this account or endpoint.",
+                429: "OpenAI provenance verification rate limit or quota reached.",
+            }
+            message = messages.get(exc.code, f"OpenAI provenance verification failed (HTTP {exc.code}).")
+            return jsonify({"error": message}), 502
+        except (URLError, TimeoutError, OSError) as exc:
+            app.logger.warning("OpenAI provenance request failed: %s", type(exc).__name__)
+            return jsonify({"error": "Could not reach OpenAI provenance verification. Check the network and try again."}), 502
+
+        if len(response_bytes) > 2 * 1024 * 1024:
+            return jsonify({"error": "Unexpectedly large response from the provenance service."}), 502
+        try:
+            payload = json.loads(response_bytes.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            return jsonify({"error": "OpenAI returned an unreadable provenance response."}), 502
+
+        raw_results = payload.get("results") if isinstance(payload, dict) else None
+        if not isinstance(raw_results, list):
+            return jsonify({"error": "OpenAI returned an unexpected provenance response."}), 502
+
+        clean_results = []
+        for item in raw_results[:5]:
+            if not isinstance(item, dict) or item.get("type") not in ("c2pa", "synthid"):
+                continue
+            outcome = item.get("outcome")
+            if outcome not in ("detected", "not_detected"):
+                continue
+            signal = {"type": item["type"], "outcome": outcome}
+            for field in ("validation_state", "issuer", "model", "generated_at"):
+                value = item.get(field)
+                if isinstance(value, str):
+                    signal[field] = value[:160]
+            clean_results.append(signal)
+
+        confirmed = any(
+            (r["type"] == "synthid" and r["outcome"] == "detected")
+            or (
+                r["type"] == "c2pa"
+                and r["outcome"] == "detected"
+                and r.get("validation_state") in ("trusted", "valid")
+                and "openai" in r.get("issuer", "").lower()
+            )
+            for r in clean_results
+        )
+        if confirmed:
+            status = "detected"
+            summary = (
+                "A supported OpenAI provenance signal was detected. This is evidence about origin, "
+                "not a guarantee that all image content is unmodified."
+            )
+        elif clean_results and all(r["outcome"] == "not_detected" for r in clean_results):
+            status = "not_detected"
+            summary = (
+                "No supported OpenAI provenance signal was detected. This does not prove the image "
+                "is genuine or rule out generation by another AI system."
+            )
+        else:
+            status = "inconclusive"
+            summary = "The service did not return a conclusive supported provenance signal."
+
+        return jsonify({
+            "result": {
+                "service": "OpenAI Content Provenance API",
+                "checked_at": datetime.now(timezone.utc).isoformat(),
+                "status": status,
+                "summary": summary,
+                "results": clean_results,
+            }
+        })
+
+    @app.post("/api/predict")
+    def predict():
+        files = request.files.getlist("files") or request.files.getlist("file")
+        if not files:
+            return jsonify({"error": "send one or more images as multipart field 'files'"}), 400
+        if len(files) > cfg.max_batch_files:
+            return jsonify({"error": f"at most {cfg.max_batch_files} files per request"}), 400
+        out = []
+        for f in files:
+            data = f.read(int(cfg.max_upload_mb * 1024 * 1024) + 1)
+            name = Path(f.filename or "upload").name
+            if len(data) > cfg.max_upload_mb * 1024 * 1024:
+                out.append({"name": name, "ok": False, "error": f"file larger than {cfg.max_upload_mb:g} MB"})
+                continue
+            try:
+                image = load_image(data, cfg, name=name)
+            except ImageError as e:
+                out.append({"name": name, "ok": False, "error": str(e)})
+                continue
+            try:
+                from PIL import Image
+                result = detector.predict_image(Image.fromarray(image.rgb), name)
+                result["format"] = image.format
+                result["forensic_report"] = build_case_report(
+                    data, image, result, detector, name
+                )
+            except Exception:
+                app.logger.exception("GPU image analysis failed")
+                out.append({
+                    "name": name,
+                    "ok": False,
+                    "error": "image analysis failed; see the local server log for details",
+                })
+                continue
+            out.append(result)
+        _remember_results(app, out)
+        return jsonify({"results": out})
+
+    @app.get("/api/history")
+    def history():
+        return jsonify({"history": app.config["ANALYSIS_HISTORY"][::-1]})
+
+    @app.delete("/api/history/<case_id>")
+    def delete_history(case_id):
+        app.config["ANALYSIS_HISTORY"] = [
+            item for item in app.config["ANALYSIS_HISTORY"] if item.get("case_id") != case_id
+        ]
+        return jsonify({"status": "deleted"})
+
+    @app.errorhandler(413)
+    def too_large(_e):
+        return jsonify({"error": "upload too large"}), 413
+
+    return app
+
+
+def serve(model_dir: str, host: str, port: int) -> None:
+    app = create_app(Detector.load(model_dir))
+    print(f"aidetect UI on http://{host}:{port}  (Ctrl+C to stop)")
+    app.run(host=host, port=port, threaded=True, debug=False)
+
+
+def serve_gpu(model_dir: str, host: str, port: int, device: str) -> None:
+    from .gpu import GPUDetector
+
+    app = create_gpu_app(GPUDetector.load(model_dir, device))
+    print(f"aidetect GPU UI on http://{host}:{port}  (Ctrl+C to stop)")
+    app.run(host=host, port=port, threaded=True, debug=False)

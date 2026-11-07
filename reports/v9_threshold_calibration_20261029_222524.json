@@ -1,0 +1,13 @@
+{
+  "calibration_dataset": "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\datasets\\openfake_external_holdout\\validation",
+  "target_specificity": 0.95,
+  "n_real": 200,
+  "n_ai": 200,
+  "false_positives": 10,
+  "true_positives": 137,
+  "calibration_specificity": 0.95,
+  "calibration_ai_recall": 0.685,
+  "original_threshold": 0.6354355861544609,
+  "calibrated_threshold": 0.7602058649063111,
+  "note": "External set used for threshold selection, not independent final validation."
+}

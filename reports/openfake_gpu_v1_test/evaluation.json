@@ -1,0 +1,106 @@
+{
+  "metrics": {
+    "n": 80,
+    "n_ai": 40,
+    "n_real": 40,
+    "threshold": 0.5053456537127494,
+    "accuracy": 0.7375,
+    "balanced_accuracy": 0.7375,
+    "precision": 1.0,
+    "recall_ai": 0.475,
+    "specificity_real": 1.0,
+    "f1": 0.6440677966101694,
+    "confusion": {
+      "tn": 40,
+      "fp": 0,
+      "fn": 21,
+      "tp": 19
+    },
+    "roc_auc": 0.92625,
+    "average_precision": 0.9372826059434852,
+    "tpr_at_1pct_fpr": 0.575,
+    "tpr_at_5pct_fpr": 0.675,
+    "brier": 0.16121517322343942,
+    "log_loss": 0.4896304218760387,
+    "ece": 0.2026477458886802,
+    "uncertain_band": {
+      "margin": 0.15,
+      "coverage": 0.7375,
+      "accuracy_when_decided": 0.8135593220338984
+    },
+    "by_source": {
+      "docci": {
+        "n": 10,
+        "label": "real",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.27624234184622765
+      },
+      "ernie-image-turbo": {
+        "n": 2,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.739008903503418
+      },
+      "flux.2-klein-9b": {
+        "n": 6,
+        "label": "ai",
+        "accuracy": 0.8333333333333334,
+        "mean_prob_ai": 0.6285920788844427
+      },
+      "gpt-image-1.5": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.3333333333333333,
+        "mean_prob_ai": 0.4076046546300252
+      },
+      "ideogram-2.0": {
+        "n": 1,
+        "label": "ai",
+        "accuracy": 0.0,
+        "mean_prob_ai": 0.4884015917778015
+      },
+      "illustrious": {
+        "n": 5,
+        "label": "ai",
+        "accuracy": 0.4,
+        "mean_prob_ai": 0.5596557319164276
+      },
+      "imagenet": {
+        "n": 30,
+        "label": "real",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.1873481680949529
+      },
+      "midjourney-7": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.0,
+        "mean_prob_ai": 0.3967335931956768
+      },
+      "seedream-v5.0": {
+        "n": 1,
+        "label": "ai",
+        "accuracy": 0.0,
+        "mean_prob_ai": 0.46169933676719666
+      },
+      "sora-2": {
+        "n": 1,
+        "label": "ai",
+        "accuracy": 0.0,
+        "mean_prob_ai": 0.32236596941947937
+      },
+      "wan-video-2.5": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.5105738441149393
+      },
+      "z-image-turbo": {
+        "n": 14,
+        "label": "ai",
+        "accuracy": 0.5,
+        "mean_prob_ai": 0.5117964010153498
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "metrics": {
+    "n": 1998,
+    "n_ai": 998,
+    "n_real": 1000,
+    "threshold": 0.6663366688489913,
+    "accuracy": 0.5485485485485485,
+    "balanced_accuracy": 0.5481482965931863,
+    "precision": 0.74,
+    "recall_ai": 0.14829659318637275,
+    "specificity_real": 0.948,
+    "f1": 0.24707846410684473,
+    "confusion": {
+      "tn": 948,
+      "fp": 52,
+      "fn": 850,
+      "tp": 148
+    },
+    "roc_auc": 0.5800425851703407,
+    "average_precision": 0.6087129368995972,
+    "tpr_at_1pct_fpr": 0.06012024048096192,
+    "tpr_at_5pct_fpr": 0.1462925851703407,
+    "brier": 0.2773926190333164,
+    "log_loss": 0.7707987270340245,
+    "ece": 0.16304518630330983,
+    "uncertain_band": {
+      "margin": 0.15,
+      "coverage": 0.8333333333333334,
+      "accuracy_when_decided": 0.5495495495495496
+    },
+    "by_source": {
+      "animal": {
+        "n": 339,
+        "label": "mixed",
+        "accuracy": 0.5634218289085545,
+        "mean_prob_ai": 0.3480516766640289
+      },
+      "art": {
+        "n": 332,
+        "label": "mixed",
+        "accuracy": 0.5993975903614458,
+        "mean_prob_ai": 0.40380438414952124
+      },
+      "food": {
+        "n": 337,
+        "label": "mixed",
+        "accuracy": 0.49851632047477745,
+        "mean_prob_ai": 0.27476428565223776
+      },
+      "landscape": {
+        "n": 314,
+        "label": "mixed",
+        "accuracy": 0.5127388535031847,
+        "mean_prob_ai": 0.2778300051547729
+      },
+      "portrait": {
+        "n": 337,
+        "label": "mixed",
+        "accuracy": 0.6379821958456974,
+        "mean_prob_ai": 0.5204085010581979
+      },
+      "product": {
+        "n": 339,
+        "label": "mixed",
+        "accuracy": 0.4778761061946903,
+        "mean_prob_ai": 0.29795296953930617
+      }
+    }
+  }
+}

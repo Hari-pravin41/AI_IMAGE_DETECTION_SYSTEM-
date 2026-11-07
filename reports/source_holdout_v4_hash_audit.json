@@ -1,0 +1,16 @@
+{
+  "train_rows_hashed": 2259,
+  "test_rows_hashed": 627,
+  "train_label_counts": {
+    "ai": 1273,
+    "real": 986
+  },
+  "test_label_counts": {
+    "ai": 327,
+    "real": 300
+  },
+  "missing_train": [],
+  "missing_test": [],
+  "unique_sha256_overlap_count": 0,
+  "overlap_examples": []
+}

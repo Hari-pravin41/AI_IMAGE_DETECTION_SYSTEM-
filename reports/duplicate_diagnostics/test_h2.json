@@ -1,0 +1,71 @@
+{
+  "n_usable": 624,
+  "per_class": {
+    "real": 298,
+    "ai": 326
+  },
+  "sources": {
+    "ai/ai/animagine-xl-3.1": 11,
+    "ai/ai/chroma": 26,
+    "ai/ai/cyberrealistic-pony-v14.0": 9,
+    "ai/ai/flux-1.1-pro": 45,
+    "ai/ai/flux-amateursnapshotphotos": 13,
+    "ai/ai/flux-realism": 7,
+    "ai/ai/flux.1-schnell": 48,
+    "ai/ai/flux.2-klein-4b": 24,
+    "ai/ai/one-obsession-17-red-sdxl": 9,
+    "ai/ai/openflux.1": 4,
+    "ai/ai/pony": 6,
+    "ai/ai/sd-3.5": 47,
+    "ai/ai/sdxl": 49,
+    "ai/ai/tiny-random-sana": 28,
+    "real/real/pexels": 298
+  },
+  "issues": {
+    "unreadable": {
+      "count": 0,
+      "examples": []
+    },
+    "too_small": {
+      "count": 0,
+      "examples": []
+    },
+    "exact_duplicates": {
+      "count": 0,
+      "examples": []
+    },
+    "label_conflicts": {
+      "count": 3,
+      "examples": [
+        "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\datasets\\canonical_holdout_v1\\test\\images\\000080.jpg",
+        "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\datasets\\canonical_holdout_v1\\test\\images\\000254.jpg",
+        "C:\\Users\\harip\\Music\\AI_ML\\ai-image-detector\\datasets\\canonical_holdout_v1\\test\\images\\000469.jpg"
+      ]
+    }
+  },
+  "n_duplicate_clusters": 624,
+  "formats": {
+    "real": {
+      "JPEG": 298
+    },
+    "ai": {
+      "JPEG": 326
+    }
+  },
+  "size_stats": {
+    "real": {
+      "median_width": 512.0,
+      "median_height": 512.0,
+      "median_bytes_per_pixel": 0.2605609893798828
+    },
+    "ai": {
+      "median_width": 512.0,
+      "median_height": 512.0,
+      "median_bytes_per_pixel": 0.2803478240966797
+    }
+  },
+  "warnings": [
+    "3 files skipped: label conflicts"
+  ],
+  "file_cue_auc": 0.5591520154815334
+}

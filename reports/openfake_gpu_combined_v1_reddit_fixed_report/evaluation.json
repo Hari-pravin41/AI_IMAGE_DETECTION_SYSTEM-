@@ -1,0 +1,40 @@
+{
+  "metrics": {
+    "n": 395,
+    "n_ai": 197,
+    "n_real": 198,
+    "threshold": 0.6663366688489913,
+    "accuracy": 0.6253164556962025,
+    "balanced_accuracy": 0.6245577603445623,
+    "precision": 0.810126582278481,
+    "recall_ai": 0.3248730964467005,
+    "specificity_real": 0.9242424242424242,
+    "f1": 0.463768115942029,
+    "confusion": {
+      "tn": 183,
+      "fp": 15,
+      "fn": 133,
+      "tp": 64
+    },
+    "roc_auc": 0.7734322924678254,
+    "average_precision": 0.7584919411285234,
+    "tpr_at_1pct_fpr": 0.1065989847715736,
+    "tpr_at_5pct_fpr": 0.2131979695431472,
+    "brier": 0.20069497376072667,
+    "log_loss": 0.5839415272169549,
+    "ece": 0.08107770238118835,
+    "uncertain_band": {
+      "margin": 0.15,
+      "coverage": 0.7493670886075949,
+      "accuracy_when_decided": 0.668918918918919
+    },
+    "by_source": {
+      "reddit": {
+        "n": 395,
+        "label": "mixed",
+        "accuracy": 0.6253164556962025,
+        "mean_prob_ai": 0.4396428296271759
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.env
+.env.*
+venv/
+.venv/
+node_modules/
+__pycache__/
+*.pyc
+*.pt
+*.pth
+*.onnx
+*.faiss
+uploads/
+datasets/
+*.log

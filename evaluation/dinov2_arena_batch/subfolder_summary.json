@@ -1,0 +1,62 @@
+[
+  {
+    "group": "AI/animal",
+    "count": 170,
+    "accuracy": 0.9470588235294117
+  },
+  {
+    "group": "AI/art",
+    "count": 170,
+    "accuracy": 0.8647058823529412
+  },
+  {
+    "group": "AI/food",
+    "count": 170,
+    "accuracy": 0.9058823529411765
+  },
+  {
+    "group": "AI/landscape",
+    "count": 168,
+    "accuracy": 0.7678571428571429
+  },
+  {
+    "group": "AI/portrait",
+    "count": 170,
+    "accuracy": 0.888235294117647
+  },
+  {
+    "group": "AI/product",
+    "count": 170,
+    "accuracy": 0.9294117647058824
+  },
+  {
+    "group": "REAL/animal",
+    "count": 170,
+    "accuracy": 0.8705882352941177
+  },
+  {
+    "group": "REAL/art",
+    "count": 170,
+    "accuracy": 0.8588235294117647
+  },
+  {
+    "group": "REAL/food",
+    "count": 170,
+    "accuracy": 0.9117647058823529
+  },
+  {
+    "group": "REAL/landscape",
+    "count": 170,
+    "accuracy": 0.9
+  },
+  {
+    "group": "REAL/portrait",
+    "count": 170,
+    "accuracy": 0.8705882352941177
+  },
+  {
+    "group": "REAL/product",
+    "count": 170,
+    "accuracy": 0.9235294117647059
+  }
+]

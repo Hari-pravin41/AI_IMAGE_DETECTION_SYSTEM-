@@ -1,0 +1,20 @@
+{
+  "total_evaluated": 2038,
+  "skipped_images": 0,
+  "device": "cuda",
+  "threshold": 0.5,
+  "accuracy": 0.8866535819430814,
+  "balanced_accuracy": 0.8866510651411841,
+  "precision_ai": 0.8884501480750246,
+  "recall_ai": 0.8840864440078585,
+  "f1_ai": 0.8862629246676514,
+  "specificity_real": 0.8892156862745098,
+  "roc_auc": 0.9538503023999383,
+  "confusion_matrix": {
+    "true_real_pred_real": 907,
+    "false_ai_alarm": 113,
+    "missed_ai": 118,
+    "true_ai_pred_ai": 900
+  },
+  "warning": "Check dataset overlap and duplicate images before claiming independent benchmark performance."
+}

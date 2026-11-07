@@ -1,0 +1,141 @@
+{
+  "n_usable": 2380,
+  "per_class": {
+    "real": 1184,
+    "ai": 1196
+  },
+  "sources": {
+    "ai/amateur-photography-v6": 4,
+    "ai/anima-preview": 5,
+    "ai/anima-preview2": 3,
+    "ai/animagine-xl-3.0": 7,
+    "ai/animagine-xl-3.1": 9,
+    "ai/animagine-xl-4.0": 8,
+    "ai/chroma": 19,
+    "ai/cyberrealistic-pony-v14.0": 7,
+    "ai/cyberrealistic-pony-v14.1": 6,
+    "ai/cyberrealistic-pony-v15.0": 7,
+    "ai/cyberrealistic-pony-v16.0": 8,
+    "ai/cyberrealistic-pony-v17.0": 3,
+    "ai/cyberrealistic-xl-v10.0": 1,
+    "ai/cyberrealistic-xl-v9.0": 6,
+    "ai/dalle-3": 38,
+    "ai/flux-1.1-pro": 37,
+    "ai/flux-amateursnapshotphotos": 9,
+    "ai/flux-mvc5000": 28,
+    "ai/flux-realism": 4,
+    "ai/flux.1-dev": 38,
+    "ai/flux.1-schnell": 38,
+    "ai/flux.2-dev": 31,
+    "ai/flux.2-klein-4b": 19,
+    "ai/flux.2-klein-base-4b": 10,
+    "ai/gpt-image-1": 38,
+    "ai/grok-2-image-1212": 25,
+    "ai/grok-imagine": 1,
+    "ai/hidream-i1-full": 38,
+    "ai/hunyuan-video": 2,
+    "ai/ideogram-3.0": 38,
+    "ai/imagen-3.0-002": 9,
+    "ai/imagen-4.0": 24,
+    "ai/kling-video-v2.5-turbo": 1,
+    "ai/kolors-v1.0": 5,
+    "ai/ltxv-2.3": 2,
+    "ai/midjourney-6": 39,
+    "ai/mystic": 29,
+    "ai/nano-banana-2": 6,
+    "ai/novaanimexl_ilv140": 13,
+    "ai/one-obsession-17-red-sdxl": 8,
+    "ai/openflux.1": 4,
+    "ai/playground-v2.5-1024px-aesthetic": 15,
+    "ai/pony": 4,
+    "ai/qwen-image": 8,
+    "ai/realistic_vision_v5.1_novae": 12,
+    "ai/realvisxl_v4.0": 1,
+    "ai/sd-1.5": 34,
+    "ai/sd-1.5-dreamshaper": 38,
+    "ai/sd-1.5-epicdream": 37,
+    "ai/sd-2.1": 37,
+    "ai/sd-3.5": 39,
+    "ai/sd-turbo": 23,
+    "ai/sd-xl-v1.0-vae-fix": 12,
+    "ai/sdxl": 38,
+    "ai/sdxl-1.0": 4,
+    "ai/sdxl-epic-realism": 38,
+    "ai/sdxl-juggernaut": 34,
+    "ai/sdxl-realvis-v5": 38,
+    "ai/sdxl-touchofrealism": 38,
+    "ai/sdxl-turbo": 15,
+    "ai/seedream-v4.0": 8,
+    "ai/seedream-v4.5": 4,
+    "ai/stable-diffusion-v1-4": 16,
+    "ai/stable-diffusion-v1-5": 29,
+    "ai/stable-diffusion-xl-base-1.0": 6,
+    "ai/studio-ghibli-wan2.1-t2v-14b-v1.0": 12,
+    "ai/tiny-random-sana": 17,
+    "ai/twbabeflux-v1": 2,
+    "ai/wan-video-2.1": 3,
+    "ai/wan-video-2.2": 7,
+    "real/coco2017": 598,
+    "real/laion": 286,
+    "real/pexels": 300
+  },
+  "issues": {
+    "unreadable": {
+      "count": 0,
+      "examples": []
+    },
+    "too_small": {
+      "count": 12,
+      "examples": [
+        "datasets\\openfake_expanded\\train\\real\\laion\\openfake-0156a5b7b2c98d0421804b077ff82163.jpg: 167x125",
+        "datasets\\openfake_expanded\\train\\real\\laion\\openfake-426de8e494c950439431a8bf614b3874.jpg: 113x160",
+        "datasets\\openfake_expanded\\train\\real\\laion\\openfake-6885a82e7a82e88ca72c2e5247a9c428.jpg: 300x38",
+        "datasets\\openfake_expanded\\train\\real\\laion\\openfake-694bf5d75497a297dd3ee68808716f36.jpg: 188x106",
+        "datasets\\openfake_expanded\\train\\real\\laion\\openfake-95f721854337a2c52ebe652bee2688e8.jpg: 110x87"
+      ]
+    },
+    "exact_duplicates": {
+      "count": 0,
+      "examples": []
+    },
+    "label_conflicts": {
+      "count": 8,
+      "examples": [
+        "datasets\\openfake_expanded\\train\\fake\\animagine-xl-4.0\\openfake-97bce170e7b043d384f076beffd3710d.jpg",
+        "datasets\\openfake_expanded\\train\\fake\\flux.1-schnell\\openfake-df12dcf180cc93c6272651952ab41411.jpg",
+        "datasets\\openfake_expanded\\train\\fake\\playground-v2.5-1024px-aesthetic\\openfake-f472d0b5ab30e611e0194ca3f5ff5708.jpg",
+        "datasets\\openfake_expanded\\train\\fake\\sd-1.5\\openfake-a911c2393c8175e86e866c0d4737c918.jpg",
+        "datasets\\openfake_expanded\\train\\real\\coco2017\\coco2017-157944.jpg"
+      ]
+    }
+  },
+  "n_duplicate_clusters": 2377,
+  "formats": {
+    "real": {
+      "JPEG": 1182,
+      "PNG": 2
+    },
+    "ai": {
+      "JPEG": 1190,
+      "PNG": 6
+    }
+  },
+  "size_stats": {
+    "real": {
+      "median_width": 640.0,
+      "median_height": 552.0,
+      "median_bytes_per_pixel": 0.15000546645665314
+    },
+    "ai": {
+      "median_width": 1024.0,
+      "median_height": 1024.0,
+      "median_bytes_per_pixel": 0.1238332817911619
+    }
+  },
+  "warnings": [
+    "12 files skipped: too small",
+    "8 files skipped: label conflicts",
+    "file-level cues alone (format/size/bytes-per-pixel) separate your classes with AUC=1.00. A model could learn those shortcuts instead of image content. Keep use_metadata_features off (default), keep augment_copies>=1, and ideally re-encode both classes the same way."
+  ],
+  "file_cue_auc": 0.9965273462216399
+}

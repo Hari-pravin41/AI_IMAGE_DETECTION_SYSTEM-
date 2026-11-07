@@ -1,0 +1,163 @@
+{
+  "n_failed": 0,
+  "metrics": {
+    "n": 80,
+    "n_ai": 40,
+    "n_real": 40,
+    "threshold": 0.575089989272255,
+    "accuracy": 0.7625,
+    "balanced_accuracy": 0.7625,
+    "precision": 0.8387096774193549,
+    "recall_ai": 0.65,
+    "specificity_real": 0.875,
+    "f1": 0.7323943661971831,
+    "confusion": {
+      "tn": 35,
+      "fp": 5,
+      "fn": 14,
+      "tp": 26
+    },
+    "roc_auc": 0.8250000000000001,
+    "average_precision": 0.8304422150225514,
+    "tpr_at_1pct_fpr": 0.15,
+    "tpr_at_5pct_fpr": 0.575,
+    "brier": 0.17102229617621464,
+    "log_loss": 0.5190549118030162,
+    "ece": 0.11422099668929236,
+    "uncertain_band": {
+      "margin": 0.15,
+      "coverage": 0.675,
+      "accuracy_when_decided": 0.8148148148148148
+    },
+    "by_source": {
+      "docci": {
+        "n": 10,
+        "label": "real",
+        "accuracy": 0.7,
+        "mean_prob_ai": 0.46483872632417234
+      },
+      "ernie-image-turbo": {
+        "n": 2,
+        "label": "ai",
+        "accuracy": 0.5,
+        "mean_prob_ai": 0.639595803231374
+      },
+      "flux.2-klein-9b": {
+        "n": 6,
+        "label": "ai",
+        "accuracy": 0.5,
+        "mean_prob_ai": 0.5574035100452555
+      },
+      "gpt-image-1.5": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.7834471436596683
+      },
+      "ideogram-2.0": {
+        "n": 1,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.8662669506963749
+      },
+      "illustrious": {
+        "n": 5,
+        "label": "ai",
+        "accuracy": 0.8,
+        "mean_prob_ai": 0.7247557526892775
+      },
+      "imagenet": {
+        "n": 30,
+        "label": "real",
+        "accuracy": 0.9333333333333333,
+        "mean_prob_ai": 0.3212717738487307
+      },
+      "midjourney-7": {
+        "n": 4,
+        "label": "ai",
+        "accuracy": 0.75,
+        "mean_prob_ai": 0.7408319508608292
+      },
+      "seedream-v5.0": {
+        "n": 1,
+        "label": "ai",
+        "accuracy": 0.0,
+        "mean_prob_ai": 0.5445428476311568
+      },
+      "sora-2": {
+        "n": 1,
+        "label": "ai",
+        "accuracy": 1.0,
+        "mean_prob_ai": 0.7212821825280445
+      },
+      "wan-video-2.5": {
+        "n": 3,
+        "label": "ai",
+        "accuracy": 0.6666666666666666,
+        "mean_prob_ai": 0.6201710461287201
+      },
+      "z-image-turbo": {
+        "n": 14,
+        "label": "ai",
+        "accuracy": 0.5714285714285714,
+        "mean_prob_ai": 0.605968324537044
+      }
+    }
+  },
+  "robustness": {
+    "jpeg_q90": {
+      "roc_auc": 0.8306250000000001,
+      "accuracy": 0.725,
+      "balanced_accuracy": 0.7250000000000001,
+      "recall_ai": 0.9,
+      "specificity_real": 0.55,
+      "auc_drop": -0.005624999999999991,
+      "n": 80
+    },
+    "jpeg_q70": {
+      "roc_auc": 0.793125,
+      "accuracy": 0.7125,
+      "balanced_accuracy": 0.7125,
+      "recall_ai": 0.5,
+      "specificity_real": 0.925,
+      "auc_drop": 0.0318750000000001,
+      "n": 80
+    },
+    "resize_0.75": {
+      "roc_auc": 0.733125,
+      "accuracy": 0.65,
+      "balanced_accuracy": 0.65,
+      "recall_ai": 0.525,
+      "specificity_real": 0.775,
+      "auc_drop": 0.09187500000000004,
+      "n": 80
+    },
+    "blur_1.0": {
+      "roc_auc": 0.685,
+      "accuracy": 0.65,
+      "balanced_accuracy": 0.65,
+      "recall_ai": 0.675,
+      "specificity_real": 0.625,
+      "auc_drop": 0.14,
+      "n": 80
+    },
+    "noise_3": {
+      "roc_auc": 0.781875,
+      "accuracy": 0.6875,
+      "balanced_accuracy": 0.6875,
+      "recall_ai": 0.825,
+      "specificity_real": 0.55,
+      "auc_drop": 0.04312500000000008,
+      "n": 80
+    },
+    "social_media": {
+      "roc_auc": 0.8275,
+      "accuracy": 0.7375,
+      "balanced_accuracy": 0.7375,
+      "recall_ai": 0.65,
+      "specificity_real": 0.825,
+      "auc_drop": -0.0024999999999999467,
+      "n": 80
+    }
+  }
+}
